@@ -11,10 +11,6 @@ focus_tree = {
 	
 	country = {
 		factor = 0
-		modifier = {
-			add = 10
-			original_tag = GER
-		}
 	}
 	
 	default = no
@@ -628,10 +624,24 @@ focus_tree = {
 		icon = GFX_focus_generic_military_mission
 		available = {
 		}
-		x = 50
+		x = 45
 		y = 0
 		
 		cost = 5
+		offset = {
+			x = -17
+			y = 0
+			trigger = {
+				has_completed_focus = GER_revive_the_kaiserreich
+			}
+		}
+		offset = {
+			x = -20
+			y = 0
+			trigger = {
+				has_completed_focus = GER_reestablish_free_elections
+			}
+		}
 		ai_will_do = {
 			factor = 8
 		}
@@ -653,14 +663,687 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.5
+				factor = 2
 				has_completed_focus = GER_reestablish_free_elections
 			}
 		}
 		completion_reward = {
-			custom_effect_tooltip = available_chief_of_army
-			show_ideas_tooltip = maxime_weygand
 			army_experience = 25
+			swap_ideas = {
+				remove_idea = GER_fan_prussian_militarism
+				add_idea = GER_fan_prussian_militarism6
+			}
+		}
+	}
+	focus = {
+		id = GER_the_russian_threat
+		icon = GFX_focus_ger_bulwark_against_bolshevism
+		x = -1
+		y = 1
+		cost = 6
+		prerequisite = { focus = GER_defensive_focus}
+		available_if_capitulated = yes
+		relative_position_id = GER_defensive_focus
+		available = {
+			country_exists = SOV
+			NOT = {
+				is_in_faction_with = SOV
+				is_puppet_of = SOV
+				SOV = {
+					is_puppet_of = GER
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		completion_reward = {
+			add_ideas = { GER_russian_threat }
+			add_political_power = 70
+		}
+	}
+	focus = {
+		id = GER_fortification_focus
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = GER_defensive_focus }
+		x = 1
+		y = 1
+		relative_position_id = GER_defensive_focus
+		cost = 8
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_ideas = FRA_fortification_focus
+		}
+	}
+	focus = {
+		id = GER_air_defense_focus
+		prerequisite = { focus = GER_fortification_focus }
+
+		continue_if_invalid = yes
+		available_if_capitulated = yes
+
+		icon = GFX_goal_generic_construct_military
+		x = 0
+		y = 1
+		relative_position_id = GER_fortification_focus 
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		bypass = {
+			custom_trigger_tooltip =  {
+				tooltip = air_defense_focus_bypass_tt
+				NOT = {
+					any_owned_state = {
+						free_building_slots = {
+							building = anti_air_building
+							size > 0
+						}
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			air_experience = 25
+			64 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			42 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			763 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			68 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+			52 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GER_strengthen_oder_neisse_line
+		text = GER_west_wall
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = GER_air_defense_focus }
+		x = 1
+		y = 1
+		relative_position_id = GER_air_defense_focus
+		cost = 6
+		ai_will_do = {
+			factor = 8
+		}
+		mutually_exclusive = {
+			focus = GER_strengthen_curzon_line
+			focus = GER_strengthen_polish_border
+		}
+			
+		completion_reward = {
+			62 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					custom_effect_tooltip = GER_odder_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 349
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3312
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3207
+							instant_build = yes
+						}
+					}
+				}
+			}
+			64 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					custom_effect_tooltip = GER_odder_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 9496
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 11415
+							instant_build = yes
+						}
+					}
+				}
+			}
+			65 = {
+				custom_effect_tooltip = GER_odder_wall_forts
+			}
+			hidden_effect = {
+				65 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 9535
+							instant_build = yes
+						}
+						
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 3514
+							instant_build = yes
+						}
+					}
+				}
+			}
+			64 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			62 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}	
+			65 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}		
+		}
+	}
+
+	focus = {
+		id = GER_strengthen_curzon_line
+		text = GER_west_wall
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = GER_air_defense_focus }
+		prerequisite = { focus = GER_the_russian_threat}
+		x = -1
+		y = 1
+		relative_position_id = GER_air_defense_focus
+		cost = 6
+		ai_will_do = {
+			factor = 8
+		}
+		mutually_exclusive = {
+			focus = GER_strengthen_oder_neisse_line
+			focus = GER_strengthen_polish_border
+		}
+			
+		completion_reward = {
+			96 = {
+				if = {
+					limit = { 
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 233
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 358
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 9341
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 406
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 277
+							instant_build = yes
+						}
+					}
+				}
+			}
+			95 = {
+				if = {
+					limit = {
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 9236
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 9304
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 11341
+							instant_build = yes
+						}
+					}
+				}
+			}
+			94 = {
+				custom_effect_tooltip = GER_curzon_wall_forts
+			}
+			hidden_effect = {
+				94 = {
+					if = {
+						limit = {
+							controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 11285
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 6579
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 535
+							instant_build = yes
+						}
+					}
+				}
+			}
+			94 = {
+				custom_effect_tooltip = GER_curzon_wall_forts
+			}
+			hidden_effect = {
+				94 = {
+					if = {
+						limit = { 
+							controller = {
+								OR = {
+									is_in_faction_with = GER
+									is_puppet_of = GER 
+									original_tag = GER
+								}
+							}
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 6520
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 11543
+							instant_build = yes
+						}
+					}
+				}
+			}
+			91 = {
+				if = {
+					limit = { 
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3483
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 438
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3562
+							instant_build = yes
+						}
+					}
+				}
+			}
+			64 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+			62 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}	
+			65 = {
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}		
+		}
+	}
+
+	focus = {
+		id = GER_strengthen_polish_border
+		text = GER_west_wall
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = GER_the_russian_threat }
+		x = -1
+		y = 2
+		relative_position_id = GER_the_russian_threat
+		cost = 6
+		ai_will_do = {
+			factor = 8
+		}
+		mutually_exclusive = {
+			focus = GER_strengthen_curzon_line
+			focus = GER_strengthen_oder_neisse_line
+		}
+			
+		completion_reward = {
+			97 = {
+				if = {
+					limit = { 
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 347
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 11247
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 290
+							instant_build = yes
+						}
+					}
+				}
+			}
+			88 = {
+				if = {
+					limit = {
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 9494
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3434
+							instant_build = yes
+						}
+					}
+				}
+			}
+			92 = {
+				custom_effect_tooltip = GER_curzon_wall_forts
+			}
+			hidden_effect = {
+				92 = {
+					if = {
+						limit = {
+							controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 9544
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 11466
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 9452
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 4
+							province = 6580
+							instant_build = yes
+						}
+					}
+				}
+			}
+			837 = {
+				if = {
+					limit = { 
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3254
+							instant_build = yes
+						}
+					}
+				}
+			}
+			850 = {
+				if = {
+					limit = { 
+						controller = {
+							OR = {
+								is_in_faction_with = GER
+								is_puppet_of = GER 
+								original_tag = GER
+							}
+						}
+					}
+					custom_effect_tooltip = GER_curzon_wall_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 400
+							instant_build = yes
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_completed_focus = GER_air_defense_focus
+				}
+				97 = {
+					add_building_construction = {
+						type = anti_air_building
+						level = 1
+						instant_build = yes
+					}
+				}
+				92 = {
+					add_building_construction = {
+						type = anti_air_building
+						level = 1
+						instant_build = yes
+					}
+				}	
+				88 = {
+					add_building_construction = {
+						type = anti_air_building
+						level = 1
+						instant_build = yes
+					}
+				}	
+			}	
+		}
+	}
+
+	focus = {
+		id = GER_a_new_army
+		icon =  GFX_goal_generic_army_doctrines
+		x = 0
+		y = 1
+		cost = 6
+		prerequisite = { focus = GER_strengthen_curzon_line focus = GER_strengthen_oder_neisse_line focus = GER_strengthen_polish_border}
+		available_if_capitulated = yes
+		relative_position_id = GER_strengthen_curzon_line
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				has_completed_focus = GER_reestablish_free_elections
+			}
+		}
+		completion_reward = {
+			army_experience = 25
+			swap_ideas = {
+				remove_idea = GER_fan_prussian_militarism6
+				add_idea = GER_fan_prussian_militarism7
+			}
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
 		}
 	}
 	focus = {
@@ -669,14 +1352,14 @@ focus_tree = {
 		mutually_exclusive = { focus = GER_defensive_focus }
 		x = 4
 		y = 1
-		cost = 5
+		cost = 6
 		relative_position_id = GER_fan_the_prussian_militarism
 		available_if_capitulated = yes
 		prerequisite = { focus = GER_fan_the_prussian_militarism }
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 0.5
+				factor = 2
 				has_completed_focus = GER_revive_the_kaiserreich
 			}
 		}
@@ -689,7 +1372,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = GER_battle_of_maneuver
+		id = GER_embrace_the_future
 		icon = GFX_goal_generic_position_armies
 		x = -2
 		y = 1
@@ -698,7 +1381,7 @@ focus_tree = {
 			y = 0
 		}
 		prerequisite = { focus = GER_aggressive_focus }
-		mutually_exclusive = { focus = GER_firepower_kills }
+		mutually_exclusive = { focus = GER_stay_with_the_old }
 		relative_position_id = GER_aggressive_focus
 		cost = 5
 
@@ -733,11 +1416,11 @@ focus_tree = {
 	focus = {
 		id = GER_armor_focus
 		icon = GFX_goal_generic_army_tanks
-		prerequisite = { focus = GER_battle_of_maneuver }
+		prerequisite = { focus = GER_embrace_the_future }
 		mutually_exclusive = { focus = GER_motorized_focus }
 		x = 1
 		y = 1
-		relative_position_id = GER_battle_of_maneuver
+		relative_position_id = GER_embrace_the_future
 		cost = 9
 
 		available_if_capitulated = yes
@@ -758,11 +1441,11 @@ focus_tree = {
 	focus = {
 		id = GER_motorized_focus
 		icon = GFX_goal_generic_army_motorized
-		prerequisite = { focus = GER_battle_of_maneuver }
+		prerequisite = { focus = GER_embrace_the_future }
 		mutually_exclusive = { focus = GER_armor_focus}
 		x = -1
 		y = 1
-		relative_position_id = GER_battle_of_maneuver
+		relative_position_id = GER_embrace_the_future
 		cost = 9
 
 		available_if_capitulated = yes
@@ -777,7 +1460,7 @@ focus_tree = {
 		icon =  GFX_goal_generic_army_doctrines
 		prerequisite = { focus = GER_motorized_focus focus = GER_armor_focus }
 		x = -1
-		y = 1
+		y = 2
 		relative_position_id = GER_armor_focus
 		cost = 8
 
@@ -792,19 +1475,19 @@ focus_tree = {
 				category = cat_mobile_warfare
 			}
 			swap_ideas = {
-				remove_idea = GER_fan_prussian_militarism
+				remove_idea = GER_fan_prussian_militarism2
 				add_idea = GER_fan_prussian_militarism4
 			}
 		}
 	}
 	focus = {
-		id = GER_firepower_kills
+		id = GER_stay_with_the_old
 		icon = GFX_goal_generic_army_artillery
 		x = 2
 		y = 1
 		
 		prerequisite = { focus = GER_aggressive_focus }
-		mutually_exclusive = { focus = GER_battle_of_maneuver }
+		mutually_exclusive = { focus = GER_embrace_the_future }
 		relative_position_id = GER_aggressive_focus
 		cost = 5
 
@@ -825,7 +1508,114 @@ focus_tree = {
 		available_if_capitulated = no
 
 		completion_reward = {
+			swap_ideas = {
+				remove_idea = GER_fan_prussian_militarism2
+				add_idea = GER_fan_prussian_militarism5
+			}
+		}
+	}
+	focus = {
+		id = GER_artillery_focus
+		icon = GFX_goal_generic_army_artillery2
+		x = 1
+		y = 1
+		prerequisite = { focus = GER_stay_with_the_old }
+		mutually_exclusive = { focus = GER_infantry_focus }
+		relative_position_id = GER_stay_with_the_old
+		cost = 8
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		available = {
+			
+		}
+		
+		bypass = {
+
+		}
+
+		cancel_if_invalid = yes
+		continue_if_invalid = no
+		available_if_capitulated = no
+
+		completion_reward = {
 			add_ideas = { FRA_firepower }
+			army_experience = 25
+			add_tech_bonus = {
+				name = FRA_artillery_focus
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = GER_infantry_focus
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = GER_stay_with_the_old }
+		mutually_exclusive = { focus = GER_artillery_focus }
+		x = -1
+		y = 1
+		relative_position_id = GER_stay_with_the_old
+		cost = 10
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 25
+			add_ideas = { FRA_infantry_focus }
+		}
+	}
+	focus = {
+		id = GER_consolidate_the_army
+		icon =  GFX_goal_generic_army_doctrines
+		prerequisite = { focus = GER_artillery_focus focus = GER_infantry_focus }
+		x = -1
+		y = 2
+		relative_position_id = GER_artillery_focus
+		cost = 8
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 25
+			add_doctrine_cost_reduction = {
+				name = GER_army_reform
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_mobile_warfare
+			}
+			swap_ideas = {
+				remove_idea = GER_fan_prussian_militarism2
+				add_idea = GER_fan_prussian_militarism4
+			}
+		}
+	}
+	focus = {
+		id = GER_the_german_army
+		icon =  GFX_goal_generic_small_arms
+		prerequisite = { focus = GER_a_new_army focus = GER_reform_the_army focus = GER_consolidate_the_army}
+		x = 0
+		y = 2
+		relative_position_id = GER_reform_the_army
+		cost = 8
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 50
+			add_political_power = 50
+			add_doctrine_cost_reduction = {
+				name = GER_army_reform
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_mobile_warfare
+			}
+			add_ideas = {
+				GER_german_army
+			}
 		}
 	}
 	focus = {
@@ -1244,6 +2034,7 @@ focus_tree = {
 	focus = {
 		id = GER_japan_friendnd
 		icon = GFX_goal_generic_military_deal
+		text = GER_japan_friend
 		prerequisite = { focus = GER_our_place_in_the_sun }
 		mutually_exclusive = { focus = GER_china_friendnd }
 		available = {
@@ -1306,6 +2097,7 @@ focus_tree = {
 	focus = {
 		id = GER_china_friendnd
 		icon = GFX_goal_generic_military_deal
+		text = GER_china_friend
 		prerequisite = { focus = GER_our_place_in_the_sun }
 		mutually_exclusive = { focus = GER_japan_friendnd }
 		available = {
@@ -2999,8 +3791,8 @@ focus_tree = {
 			}
 		}
 		x = 1
-		y = 2
-		relative_position_id = GER_the_central_powers
+		y = 1
+		relative_position_id = GER_restoration_of_our_empire
 		cost = 7
 		ai_will_do = {
 			factor = 10
@@ -3025,7 +3817,7 @@ focus_tree = {
 		bypass = {
 		}
 		cancel_if_invalid = yes
-		x = 1
+		x = 0
 		y = 2
 		relative_position_id = GER_restore_the_kaisers_hegemony
 		cost = 10
@@ -3105,9 +3897,9 @@ focus_tree = {
 			controls_state = 768
 			controls_state = 769
 		}
-		x = -2
-		y = 2
-		relative_position_id = GER_our_place_in_the_sun
+		x = -1
+		y =1
+		relative_position_id = GER_restoration_of_our_empire
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -3132,17 +3924,35 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_colonial_divisions
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = GER_restore_our_colonies}
+		x = -1
+		y =1
+		relative_position_id = GER_restore_our_colonies
+		cost = 7
+		ai_will_do = {
+			factor = 1
+		}
+		
+		completion_reward = {
+			add_ideas = {
+				GER_colonial_divisions
+			}
+		}
+	}
+
+	focus = {
 		id = GER_asian_commitments
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = GER_japan_friendnd focus = GER_china_friendnd }
-		prerequisite = { focus = GER_restore_our_colonies }
 		available = {
 			is_subject = no
 		}
 		
-		x = 2
+		x = 0
 		y = 1
-		relative_position_id = GER_restore_our_colonies
+		relative_position_id = GER_china_friendnd
 		cost = 5
 		ai_will_do = {
 			factor = 1
@@ -5727,7 +6537,7 @@ focus_tree = {
 				set_global_flag = form_hre_flag
 				country_event = { id = { germany.1052 } }
 			}
-			GER_expand_hre_tt
+			custom_effect_tooltip = GER_expand_hre_tt
 		}
 	
 		ai_will_do = {

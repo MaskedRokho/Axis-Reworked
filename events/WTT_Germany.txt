@@ -4032,6 +4032,12 @@ country_event = {
 
 			GER = {add_to_faction = HUN}
 		}
+		hidden_effect = {
+			add_state_claim = 664
+			add_state_claim = 71
+			add_state_claim = 70
+			add_state_claim = 73
+		}
 		GER = {country_event = wtt_germany.1016}
 	}
 

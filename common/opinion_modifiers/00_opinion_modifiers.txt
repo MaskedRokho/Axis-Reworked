@@ -744,6 +744,8 @@ opinion_modifiers = {
 
 	GER_gave_land_in_yugoslavia = { value = 15 }
 
+	GER_accepted_offer = { value = 20 }
+
 	### BUL seeking an alliance
 
 	ROM_seek_alliance_GER = { value = 25 }

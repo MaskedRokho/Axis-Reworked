@@ -7359,13 +7359,6 @@ country_event = { #German Pressure on the benelux
 				id = germany.1045
 				days = 1
 			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = ROOT
-					expire = 0
-				}
-			}
 		}
 	}
 }
@@ -7380,10 +7373,33 @@ country_event = { #not accepted
 
 	option = { #NOPE
 		name = germany.1043.a
+		ai_chance = {
+			#factor = 50
+			modifier = {
+				factor = 35
+				strength_ratio = { tag = FROM ratio < 1 }
+			}
+			modifier = {
+				factor = 100000
+				strength_ratio = { tag = FROM ratio > 1 }
+			}
+			modifier = {
+				factor = 1
+				strength_ratio = { tag = FROM ratio < 0.5 }
+			}
+			
+		}
 		create_wargoal = {
 			type = puppet_wargoal_focus
 			target = FROM
 			expire = 0
+		}
+	}
+
+	option = { #FINE
+		name = germany.1043.b
+		ai_chance = {
+			factor = 35
 		}
 	}
 }
@@ -7447,13 +7463,6 @@ country_event = { #Lit
 				id = germany.1045
 				days = 1
 			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = ROOT
-					expire = 0
-				}
-			}
 		}
 	}
 }
@@ -7483,7 +7492,9 @@ country_event = { #POL-Lit
 			add_state_core = 849
 			add_state_core = 850
 		}
-		GER = { country_event = { id = germany.1051 } }
+		GER = {
+			country_event = { id = germany.1051 }
+		}
 	}
 
 	option = { #NOPE
@@ -7516,13 +7527,7 @@ country_event = { #POL-Lit
 				id = germany.1045
 				days = 1
 			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = ROOT
-					expire = 0
-				}
-			}
+
 		}
 	}
 }
@@ -7536,38 +7541,24 @@ country_event = { #Lat
 	is_triggered_only = yes
 
 	option = { #fine
-		name = germany.1046.a 
+		name = germany.1048.a 
 		ai_chance = {
 			factor = 50
 		}
-		effect_tooltip = {
-			LAT = {
-				set_cosmetic_tag = BAL_UNIFIED_neutrality
-				annex_country = {
-    				target = EST
-   					transfer_troops = yes
-				}
-			}
-			EST = { custom_effect_tooltip = needs_approval }
-		}	
 		GER = { country_event = { id = germany.1051 } }
+		EST = { country_event = { id = germany.1049 } }
 	}
 
 	option = { #NOPE
-		name = germany.1043.b
+		name = germany.1048.b
 		GER = {
 			country_event = {
 				id = germany.1045
 				days = 1
 			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = ROOT
-					expire = 0
-				}
-			}
 		}
+		EST = { country_event = { id = germany.1049 } }
+		set_global_flag = lat_declines
 	}
 }
 country_event = { #est
@@ -7579,38 +7570,60 @@ country_event = { #est
 	is_triggered_only = yes
 
 	option = { #fine
-		name = germany.1046.a 
+		name = germany.1049.a 
 		ai_chance = {
 			factor = 50
 		}
 		if = {
 			limit = {
-				is_ai = no
-				LAT = { is_ai = yes }
+				OR = {
+					AND = {
+						is_ai = no
+						LAT = { is_ai = yes }
+					}
+					has_global_flag = lat_declines
+				}
+				
 			}
 			GER = {
 				puppet = EST
 				country_event = { id = germany.1051 }
 			}
-			EST = {
-				set_cosmetic_tag = BAL_UNIFIED
-				set_politics = {
-					ruling_party = neutrality
+			if = {
+				limit = {
+					has_global_flag = lat_declines
 				}
-				annex_country = {
-    				target = LAT
-   					transfer_troops = yes
+				EST = {
+					add_state_claim = 12
+					add_state_claim = 810
+					add_state_claim = 808
+					add_state_claim = 190
+					add_state_claim = 809
+					set_cosmetic_tag = BAL_UNIFIED
+					set_politics = {
+						ruling_party = neutrality
+					}
 				}
-				hidden_effect = {
-					add_state_core = 12
-					add_state_core = 810
-					add_state_core = 808
-					add_state_core = 190
-					add_state_core = 809
+				else = {
+					EST = {
+						set_cosmetic_tag = BAL_UNIFIED
+						set_politics = {
+							ruling_party = neutrality
+						}
+						annex_country = {
+    						target = LAT
+   							transfer_troops = yes
+						}
+						hidden_effect = {
+							add_state_core = 12
+							add_state_core = 810
+							add_state_core = 808
+							add_state_core = 190
+							add_state_core = 809
+						}
+					}
 				}
 			}
-			
-
 			else = {
 				GER = {
 					puppet = LAT
@@ -7640,18 +7653,11 @@ country_event = { #est
 	}
 
 	option = { #NOPE
-		name = germany.1043.b
+		name = germany.1049.b
 		GER = {
 			country_event = {
 				id = germany.1045
 				days = 1
-			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = ROOT
-					expire = 0
-				}
 			}
 		}
 		LAT = {
@@ -7679,7 +7685,7 @@ country_event = { #south jutland demanded
 		ai_chance = {
 			factor = 35
 		}
-		name = germany.1046.a 
+		name = germany.1050.a 
 		ai_chance = {
 			factor = 50
 		}
@@ -7692,7 +7698,7 @@ country_event = { #south jutland demanded
 	}
 
 	option = { #NOPE
-		name = germany.1043.b
+		name = germany.1050.b
 		ai_chance = {
 			#factor = 50
 			modifier = {
@@ -7714,13 +7720,6 @@ country_event = { #south jutland demanded
 				id = germany.1045
 				days = 1
 			}
-			effect_tooltip = {
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = ROOT
-					expire = 0
-				}
-			}
 			add_state_claim = 836
 		}
 		
@@ -7737,6 +7736,10 @@ country_event = { #accepted
 
 	option = { #GREAT
 		name = germany.1051.a
+		add_opinion_modifier = {
+    		target = FROM
+   			modifier = GER_accepted_offer
+		}
 	}
 }
 
