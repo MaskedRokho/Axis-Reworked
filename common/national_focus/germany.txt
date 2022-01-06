@@ -11,7 +11,10 @@ focus_tree = {
 	
 	country = {
 		factor = 0
-		
+		modifier = {
+			add = 10
+			original_tag = GER
+		}
 	}
 	
 	default = no

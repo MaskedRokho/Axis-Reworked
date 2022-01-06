@@ -22,8 +22,8 @@ focus_tree = {
 		id = GER_four_year_plan2
 		text = GER_four_year_plan
 		icon = GFX_goal_generic_construction
-		x = 30
-		y = 0
+		x = -10
+		y = 12
 		cost = 7
 		offset = {
 			x = -17
@@ -40,7 +40,9 @@ focus_tree = {
 			}
 		}
 		available = {
-			has_completed_focus = GER_rebuild_the_nation
+			NOT = {
+				has_civil_war = yes
+			}
 		}
 		ai_will_do = {
 			factor = 12
@@ -624,8 +626,8 @@ focus_tree = {
 		icon = GFX_focus_generic_military_mission
 		available = {
 		}
-		x = 45
-		y = 0
+		x = 0
+		y = 12
 		
 		cost = 5
 		offset = {
@@ -1317,6 +1319,95 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_polish_war_economy2
+		text = GER_german_war_economy
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_german_war_economy2 }
+		prerequisite = { focus = GER_strengthen_polish_border }
+		x = -1
+		y = 1
+		relative_position_id = GER_strengthen_polish_border
+		cost = 8
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = no
+		available = {
+			POL = {
+				OR = {
+					is_in_faction_with = GER
+					is_puppet_of = GER
+				}
+			}
+		}
+		complete_tooltip = {
+			every_state = {
+				limit = { has_state_flag = GER_polish_war_economy }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			POL = {
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = GER_polish_war_economy
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = GER_polish_war_economy
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					set_state_flag = GER_polish_war_economy
+				}
+			}
+		}
+	}
+
+	focus = {
 		id = GER_a_new_army
 		icon =  GFX_goal_generic_army_doctrines
 		x = 0
@@ -1374,7 +1465,7 @@ focus_tree = {
 	focus = {
 		id = GER_embrace_the_future
 		icon = GFX_goal_generic_position_armies
-		x = -2
+		x = -3
 		y = 1
 		offset = {
 			x = 0
@@ -1427,12 +1518,119 @@ focus_tree = {
 
 		completion_reward = {
 			army_experience = 25
-			add_tech_bonus = {
-				name = FRA_light_medium_armor
-				bonus = 1.0
-				uses = 2
-				category = cat_light_armor
-				category = cat_medium_armor
+				if = {
+				limit = { 
+					has_dlc = "No Step Back"
+				}
+				if = {
+					limit = {
+						has_tech = basic_medium_tank_chassis
+					}
+					effect_tooltip = {
+						create_equipment_variant = {
+							name = "Panzer III Ausf. A"
+							type = medium_tank_chassis_1
+							parent_version = 0
+							modules = {
+								main_armament_slot = tank_high_velocity_cannon
+								turret_type_slot = tank_medium_three_man_tank_turret
+								suspension_type_slot = tank_bogie_suspension
+								armor_type_slot = tank_welded_armor
+								engine_type_slot = tank_gasoline_engine
+								special_type_slot_1 = tank_radio_1
+								special_type_slot_2 = smoke_launchers
+							}
+							upgrades = {
+								tank_nsb_engine_upgrade = 6
+								tank_nsb_armor_upgrade = 3
+							}
+							icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+						}
+						create_equipment_variant = {
+							name = "Panzer IV Ausf. A"
+							type = medium_tank_chassis_1
+							parent_version = 1
+							modules = {
+								main_armament_slot = tank_close_support_gun
+								turret_type_slot = tank_medium_three_man_tank_turret
+								suspension_type_slot = tank_bogie_suspension
+								armor_type_slot = tank_welded_armor
+								engine_type_slot = tank_gasoline_engine
+								special_type_slot_1 = tank_radio_1
+								special_type_slot_2 = smoke_launchers
+							}
+							upgrades = {
+								tank_nsb_engine_upgrade = 6
+								tank_nsb_armor_upgrade = 2
+							}
+							icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+						}
+					}
+				}
+				else = {
+					custom_effect_tooltip = GER_soviet_treaty_research_nsb_tt
+					effect_tooltip = {
+						create_equipment_variant = {
+							name = "Panzer III Ausf. A"
+							type = medium_tank_chassis_1
+							parent_version = 0
+							modules = {
+								main_armament_slot = tank_high_velocity_cannon
+								turret_type_slot = tank_medium_three_man_tank_turret
+								suspension_type_slot = tank_bogie_suspension
+								armor_type_slot = tank_welded_armor
+								engine_type_slot = tank_gasoline_engine
+								special_type_slot_1 = tank_radio_1
+								special_type_slot_2 = smoke_launchers
+							}
+							upgrades = {
+								tank_nsb_engine_upgrade = 6
+								tank_nsb_armor_upgrade = 3
+							}
+							icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+						}
+						create_equipment_variant = {
+							name = "Panzer IV Ausf. A"
+							type = medium_tank_chassis_1
+							parent_version = 1
+							modules = {
+								main_armament_slot = tank_close_support_gun
+								turret_type_slot = tank_medium_three_man_tank_turret
+								suspension_type_slot = tank_bogie_suspension
+								armor_type_slot = tank_welded_armor
+								engine_type_slot = tank_gasoline_engine
+								special_type_slot_1 = tank_radio_1
+								special_type_slot_2 = smoke_launchers
+							}
+							upgrades = {
+								tank_nsb_engine_upgrade = 6
+								tank_nsb_armor_upgrade = 2
+							}
+							icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+						}	
+					}
+				}
+				add_tech_bonus = {
+					name = armor_bonus
+					bonus = 1.0
+					uses = 2
+					category = armor
+				}
+			}
+			else = {
+				effect_tooltip = {
+					add_tech_bonus = {
+						name = med_armor_bonus
+						ahead_reduction = 1
+						category = cat_medium_armor
+					}
+					add_tech_bonus = {
+						name = armor_bonus
+						bonus = 1.0
+						uses = 2
+						category = armor
+					}
+				}
 			}
 			custom_effect_tooltip = available_theorist
 			show_ideas_tooltip = erwin_rommel
@@ -1483,7 +1681,7 @@ focus_tree = {
 	focus = {
 		id = GER_stay_with_the_old
 		icon = GFX_goal_generic_army_artillery
-		x = 2
+		x = 3
 		y = 1
 		
 		prerequisite = { focus = GER_aggressive_focus }
@@ -1594,6 +1792,36 @@ focus_tree = {
 		}
 	}
 	focus = {
+		id = GER_army_innovations2
+		icon = GFX_goal_generic_axis_build_infantry
+		x = 0
+		y = 2
+		relative_position_id = GER_aggressive_focus
+		prerequisite = { focus = GER_aggressive_focus }
+		cost = 8
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			# Balance research bonus for 2 techs under land_doctrine
+			
+			army_experience = 10
+
+			
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			custom_effect_tooltip = available_chief_of_army
+			show_ideas_tooltip = walther_von_brauchitsch			
+		}
+	}
+	focus = {
 		id = GER_the_german_army
 		icon =  GFX_goal_generic_small_arms
 		prerequisite = { focus = GER_a_new_army focus = GER_reform_the_army focus = GER_consolidate_the_army}
@@ -1618,6 +1846,415 @@ focus_tree = {
 			}
 		}
 	}
+
+	focus = {
+		id = GER_air_innovation2
+		text = GER_air_innovation
+		text = air_innovation
+		icon = GFX_goal_generic_build_airforce
+		x = 12
+		y = 12
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		complete_tooltip = {
+			air_experience = 25
+			add_doctrine_cost_reduction = {
+				name = air_sup_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = battlefield_support_tree
+			}
+			every_state = {
+				limit = { has_state_flag = GER_air_innovation_2air }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			every_state = {
+				limit = { has_state_flag = GER_air_innovation_6air }
+				add_building_construction = {
+					type = air_base
+					level = 6
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = available_chief_of_airforce
+			show_ideas_tooltip = ritter_von_greim
+		}
+		
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			
+			air_experience = 25
+
+			add_doctrine_cost_reduction = {
+				name = air_sup_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = battlefield_support_tree
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							air_base > 3
+							air_base < 9
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 5
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 6
+						instant_build = yes
+					}
+					set_state_flag = GER_air_innovation_6air
+				}				
+			}
+
+			random_owned_controlled_state = {
+				limit = {
+					air_base > 3
+					air_base < 9
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_air_innovation_2air
+			}
+			random_owned_controlled_state = {
+				limit = {
+					air_base > 3
+					air_base < 9
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_air_innovation_2air
+			}
+			random_owned_controlled_state = {
+				limit = {
+					air_base > 2
+					air_base < 9
+				}
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+				set_state_flag = GER_air_innovation_2air
+			}
+			custom_effect_tooltip = available_chief_of_airforce
+			show_ideas_tooltip = ritter_von_greim
+		}
+	}
+
+	focus = {
+		id = GER_invest_in_aviation
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_air_innovation2 }
+		mutually_exclusive = { focus = GER_integrate_war_economies }
+		x = 0
+		y = 1
+		relative_position_id = GER_air_innovation2
+		cost = 8
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = no
+		available = {
+			has_war_support > 0.49
+		}
+		complete_tooltip = {
+			every_state = {
+				limit = { has_state_flag = GER_invest_in_aviation }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = GER_invest_in_aviation
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = GER_invest_in_aviation
+			}
+		}
+	}
+
+	focus = {
+		id = GER_tactical_air_effort2
+		text = GER_tactical_air_effort
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = GER_air_innovation2 }
+		mutually_exclusive = { focus = GER_strategic_air_effort2 }
+		x = 1
+		y = 2
+		relative_position_id = GER_air_innovation2
+		cost = 10
+		ai_will_do = {
+			factor = 0.25
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = op_dest_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = battlefield_support_tree
+			}
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 1
+				category = tactical_bomber
+				category = cas_bomber			
+			}
+		}
+	}
+
+	focus = {
+		id = GER_long_range_escorts2
+		text = GER_long_range_escorts
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = GER_strategic_air_effort2 }
+		x = 0
+		y = 2
+		relative_position_id = GER_strategic_air_effort2
+		cost = 10
+		ai_will_do = {
+			factor = 0.1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_tech_bonus = {
+				name = GER_long_range_escorts
+				bonus = 1.0
+				uses = 2
+				category = cat_heavy_fighter
+			}
+		}
+	}
+	
+
+	focus = {
+		id = GER_naval_air_effort2
+		text = naval_air_effort
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = { focus = GER_tactical_air_effort2 }
+		x = 0
+		y = 2
+		relative_position_id = GER_tactical_air_effort2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_tech_bonus = {
+				name = nav_bomber_bonus
+				bonus = 1.0
+				uses = 2
+				category = naval_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = GER_strategic_air_effort2
+		text = GER_strategic_air_effort
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = GER_air_innovation2 }
+		mutually_exclusive = { focus = GER_tactical_air_effort2 }
+		x = -1
+		y = 2
+		relative_position_id = GER_air_innovation2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			# Balance research bonus for 2 techs in battlefield_support_tree
+			add_doctrine_cost_reduction = {
+				name = strat_dest_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = battlefield_support_tree
+			}
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_strategic_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = GER_air_innovation_3
+		text = GER_air_innovation_2
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = GER_strategic_air_effort2 focus = GER_tactical_air_effort2 }
+		x = 1
+		y = 1
+		relative_position_id = GER_strategic_air_effort2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = { 
+			air_experience = 50
+
+			add_ideas = GER_air_innovations_2_idea
+			# Balance research bonus to next tech among radio, radio_detection, decimetric_radar, improved_decimetric_radar, centimetric_radar, improved_centimetric_radar, advanced_centimetric_radar
+			add_tech_bonus = {
+				name = radar_tech_bonus
+				bonus = 1.0
+				uses = 1
+				category = radar_tech
+			}
+			if = {
+				limit = {
+					has_opinion_modifier = sov_ger_treaty
+					NOT = { has_war_with = SOV }
+				}
+				SOV = {
+					country_event = { id = germany.78 days = 1 }
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GER_invest_in_aviation2
+		text = GER_invest_in_aviation
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_long_range_escorts2 focus = GER_naval_air_effort2 }
+		mutually_exclusive = { focus = GER_integrate_war_economies }
+		x = 0
+		y = 6
+		relative_position_id = GER_air_innovation2
+		cost = 8
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = no
+		available = {
+			has_war_support > 0.49
+		}
+		complete_tooltip = {
+			every_state = {
+				limit = { has_state_flag = GER_invest_in_aviation }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			every_state = {
+				clr_state_flag = GER_invest_in_aviation
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = GER_invest_in_aviation
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+				set_state_flag = GER_invest_in_aviation
+			}
+		}
+	}
+
 	focus = {
 		id = GER_opposition_war
 		icon = GFX_goal_generic_dangerous_deal
