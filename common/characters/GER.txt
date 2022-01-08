@@ -35,12 +35,6 @@ characters={
 				large="gfx/leaders/GER/Portrait_Germany_Wilhelm_Pieck.dds"
 			}
 		}
-		country_leader={
-			ideology=stalinism
-			traits={ exiled }
-			expire="1965.1.1.1"
-			id=-1
-		}
 	}
 
 	GER_wilhelm_ii={ #Empty Wilhelm II so he doesn't become ruler automatically if the neutrals are in power
@@ -1484,6 +1478,9 @@ characters={
 	GER_ernst_thalmann={
 		name=GER_ernst_thalmann
 		portraits={
+			civilian={
+				large="gfx/leaders/GER/Portrait_Germany_Ernst_Thallman.dds"
+			}
 			army={
 				small="GFX_idea_ernst_thalmann"
 			}
@@ -1515,6 +1512,11 @@ characters={
 			ai_will_do = {
 				factor = 0.000
 			}
+		}
+		country_leader={
+			ideology=stalinism
+			expire="1965.1.1.1"
+			id=-1
 		}
 	}
 
