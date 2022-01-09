@@ -28,12 +28,45 @@ characters={
 		}
 	}
 
+	GER_theodor_heuss={
+		name=GER_theodor_heuss
+		portraits={
+			civilian={
+				large="gfx/leaders/GER/Portrait_Germany_Konrad_Adenauer.dds"
+			}
+		}
+		country_leader={
+			ideology=liberalism
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}
+
+	GER_kurt_schumacher={
+		name=GER_kurt_schumacher
+		portraits={
+			civilian={
+				large="gfx/leaders/GER/Portrait_Germany_Konrad_Adenauer.dds"
+			}
+		}
+		country_leader={
+			ideology=socialism
+			expire="1965.1.1.1"
+			id=-1
+		}
+	}
+
 	GER_wilhelm_pieck={
 		name=GER_wilhelm_pieck
 		portraits={
 			civilian={
 				large="gfx/leaders/GER/Portrait_Germany_Wilhelm_Pieck.dds"
 			}
+		}
+		country_leader={
+			ideology=stalinism
+			expire="1965.1.1.1"
+			id=-1
 		}
 	}
 
@@ -1514,7 +1547,7 @@ characters={
 			}
 		}
 		country_leader={
-			ideology=stalinism
+			ideology=leninism
 			expire="1965.1.1.1"
 			id=-1
 		}

@@ -7846,6 +7846,7 @@ country_event = { #what do with the monarchy
 		}
 		hidden_effect = {
 			set_country_flag = GER_abolish_monarchy
+			country_event = { id = germany.1056 days = 5 }
 		}
 	}
 
@@ -7856,64 +7857,454 @@ country_event = { #what do with the monarchy
 		}
 		hidden_effect = {
 			set_country_flag = GER_compromised_monarchy
+			country_event = { id = germany.1056 days = 5 }
 		}
 	}
 }
 
-country_event = { #what do with the monarchy
-	id = germany.1054
-	title = germany.1054.t
-	desc = germany.1054.desc
-	picture = GFX_report_event_german_reichstag_gathering
-
-	is_triggered_only = yes
-
-	option = { #abolish
-		name = germany.1054.a 
-		ai_chance = {
-			factor = 50
-		}
-		hidden_effect = {
-			set_country_flag = GER_abolish_monarchy
-		}
-	}
-
-	option = { #compromise
-		name = germany.1054.b
-		ai_chance = {
-			factor = 50
-		}
-		hidden_effect = {
-			set_country_flag = GER_compromised_monarchy
-		}
-	}
-}
-
-country_event = { #what do with the monarchy
+country_event = { #what do with the socialists
 	id = germany.1055
-	title = germany.1054.t
-	desc = germany.1054.desc
+	title = germany.1055.t
+	desc = germany.1055.desc
 	picture = GFX_report_event_german_reichstag_gathering
 
 	is_triggered_only = yes
 
-	option = { #abolish
+	option = { #allow
 		name = germany.1055.a 
 		ai_chance = {
-			factor = 50
+			factor = 40
+			modifier = {
+				factor = 70
+				communism > 0.4
+			}
+		}
+		if = {
+			limit = {
+				communism > 0.4
+			}
+			add_political_power = 75
+			add_stability = -0.01
+			else = {
+				add_political_power = 30
+				add_stability = -0.03
+			}
 		}
 		hidden_effect = {
-			set_country_flag = GER_abolish_monarchy
+			country_event = { id = germany.1057 days = 5 }
+			set_country_flag = GER_commie_parties_allowed
 		}
 	}
 
-	option = { #compromise
+	option = { #ban
 		name = germany.1055.b
 		ai_chance = {
 			factor = 50
+			modifier = {
+				factor = 70
+				communism < 0.3
+			}
+		}
+		add_ideas = {
+			GER_banned_communism
+		}
+		if = {
+			limit = {
+				communism > 0.4
+			}
+			add_political_power = -75
+			add_stability = 0.03
+			else = {
+				add_political_power = -30
+				add_stability = 0.01
+			}
 		}
 		hidden_effect = {
-			set_country_flag = GER_compromised_monarchy
+			country_event = { id = germany.1057 days = 5 }
 		}
+	}
+}
+
+country_event = { #centralisation, or federalisation
+	id = germany.1056
+	title = germany.1056.t
+	desc = germany.1056.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #federalisation
+		name = germany.1052.a 
+		ai_chance = {
+			factor = 50
+		}
+		add_ideas = {
+			GER_federalised_state
+		}
+		hidden_effect = {
+			country_event = { id = germany.1055 days = 5 }
+		}
+	}
+
+	option = { #Centralisation
+		name = germany.1052.b
+		ai_chance = {
+			factor = 20
+		}
+		add_ideas = {
+			GER_centralised_state
+		}
+		hidden_effect = {
+			country_event = { id = germany.1055 days = 5 }
+		}
+	}
+}
+
+country_event = { #deciding our foreign policy
+	id = germany.1057
+	title = germany.1057.t
+	desc = germany.1057.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #looking outwards
+		name = germany.1057.a 
+		ai_chance = {
+			factor = 50
+		}
+		add_political_power = 25
+		hidden_effect = {
+			country_event = { id = germany.1058 days = 5 }
+		}
+	}
+}
+
+country_event = { #naval
+	id = germany.1058
+	title = germany.1058.t
+	desc = germany.1058.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #naval buildup
+		name = germany.1058.a 
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			set_country_flag = GER_naval_alone
+			country_event = { id = germany.1059 days = 5 }
+		}
+	}
+
+	option = { #Accept British Naval Dominance
+		name = germany.1058.b
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			set_country_flag = GER_accepted_british
+			country_event = { id = germany.1059 days = 5 }
+		}
+	}
+}
+
+country_event = { #our status with bolshevism
+	id = germany.1059
+	title = germany.1059.t
+	desc = germany.1059.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #a horrible stain on this world
+		name = germany.1059.a 
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			every_other_country = {
+				limit = {
+					has_government = communism
+					is_major = yes
+				}
+				add_ai_strategy = {
+					type = contain
+					id = "GER"
+					value = 100
+				}
+				add_ai_strategy = {
+					type = prepare_for_war 
+					id = "GER"
+					value = 100
+				}
+				add_ai_strategy = {
+					type = antagonize 
+					id = "GER"
+					value = 100
+				}
+			}
+			country_event = { id = germany.1060 days = 5 }
+		}
+	}
+
+	option = { #Reluctantly accept them
+		name = germany.1059.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			set_country_flag = GER_reluctant_bolshevism
+			add_popularity = {
+   				ideology = communism
+    			popularity = 0.01
+			}
+			country_event = { id = germany.1060 days = 5 }
+		}
+	}
+}
+
+country_event = { #our status with nazism
+	id = germany.1060
+	title = germany.1060.t
+	desc = germany.1060.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #a horrible stain on this world
+		name = germany.1059.a 
+		ai_chance = {
+			factor = 50
+		}
+		hidden_effect = {
+			every_other_country = {
+				limit = {
+					has_government = fascism
+					is_major = yes
+				}
+				add_ai_strategy = {
+					type = contain
+					id = "GER"
+					value = 100
+				}
+				add_ai_strategy = {
+					type = prepare_for_war 
+					id = "GER"
+					value = 100
+				}
+				add_ai_strategy = {
+					type = antagonize 
+					id = "GER"
+					value = 100
+				}
+			}
+			country_event = { id = germany.1061 days = 5 }
+		}
+	}
+
+	option = { #Reluctantly accept them
+		name = germany.1059.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			add_popularity = {
+   				ideology = fascism
+    			popularity = 0.02
+			}
+			ITA = {
+				add_ai_strategy = {
+					type = invade 
+					id = "GER"
+					value = -100
+				}
+			}
+			country_event = { id = germany.1061 days = 5 }
+		}
+	}
+}
+
+country_event = { #intervention in foreign affairs
+	id = germany.1061
+	title = germany.1061.t
+	desc = germany.1061.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #We must protect german interests
+		name = germany.1061.a 
+		ai_chance = {
+			factor = 50
+		}
+		add_war_support = 0.05
+		if = {
+			limit = {
+				has_dlc = "La Resistance"
+			}
+			add_ideas = {
+				GER_bnd_funding
+			}
+			else = {
+				add_ideas = {
+					GER_bnd_funding2
+				}
+			}
+		}
+		
+	}
+
+	option = { #we must not meddle in foreign affairs
+		name = germany.1061.b
+		ai_chance = {
+			factor = 50
+		}
+		add_stability = 0.05
+		add_political_power = 25
+		add_ideas = {
+			neutrality_idea
+		}
+	}
+}
+
+country_event = { #a new german republic
+	id = germany.1062
+	title = germany.1062.t
+	desc = germany.1062.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #Einigkeit und Recht und Freiheit.
+		name = germany.1062.a 
+		ai_chance = {
+			factor = 50
+		}
+		add_war_support = 0.05
+		add_stability = 0.05
+		add_political_power = 70
+		hidden_effect = {
+			set_country_flag = GER_new_constitution
+		}
+	}
+}
+
+country_event = { #first german elections
+	id = germany.1063
+	title = germany.1063.t
+	desc = germany.1063.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #Elect Conservative Konrad Adenaur
+		name = germany.1063.a 
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				has_country_flag = GER_compromised_monarchy
+			}
+		}
+		promote_character = GER_konrad_adenauer
+	}
+	option = { #Elect Liberal Theodor Heuss
+		name = germany.1063.a 
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.5
+				has_country_flag = GER_abolish_monarchy
+			}
+		}
+		promote_character = GER_theodor_heuss
+	}
+	option = { #Elect Social Democratic Kurt Schumacher
+		name = germany.1063.c
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				has_country_flag = GER_reluctant_bolshevism
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = GER_abolish_monarchy
+			}
+			modifier = {
+				factor = 2
+				has_country_flag = GER_commie_parties_allowed
+			}
+		}
+		promote_character = GER_kurt_schumacher
+	}
+}
+
+country_event = { #germany wants us to invest in them
+	id = germany.1064
+	title = germany.1064.t
+	desc = germany.1064.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #Of course,
+		name = germany.1064.a 
+		ai_chance = {
+			factor = 50
+		}
+		
+		add_timed_idea = {
+    		idea = GER_investing
+   			days = 70
+		}
+		
+		GER = {
+			random_owned_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = ROOT
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		
+	}
+
+	option = { #we must focus on ourselves
+		name = germany.1064.b
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+
+country_event = { #FROM accepts
+	id = germany.1065
+	title = germany.1065.t
+	desc = germany.1065.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #they accept
+		name = germany.1065.a 
+		ai_chance = {
+			factor = 50
+		}
+		add_war_support = 0.05
 	}
 }

@@ -1315,24 +1315,12 @@ foreign_politics = {
 		complete_effect = {
 			custom_effect_tooltip = GER_assassinate_mussolini_tt
 			ITA = {
-				country_event = { id = wtt_germany.11 }
+				country_event = { id = wtt_germany.1017 }
 			}
 			effect_tooltip = {
 				ITA = {
 					set_politics = { ruling_party = democratic elections_allowed = no }
 					add_popularity = { ideology = democratic popularity = 0.1 }
-					effect_tooltip = {
-						create_country_leader = {
-							name = "Victor Emmanuel III"
-							desc = "POLITICS_VICTOR_EMMANUEL_III_DESC"
-							picture = "GFX_portrait_italy_victor_emmanuel_iii"
-							expire = "1965.1.1"
-							ideology = despotism
-							traits = {
-						
-							}
-						}
-					}
 					swap_ideas = {
 						remove_idea = GER_preparing_ITA_coup
 						add_idea = GER_preparing_ITA_coup2

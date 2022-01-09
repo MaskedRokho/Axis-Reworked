@@ -385,7 +385,14 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		add_timed_idea = { idea = GER_preparing_ITA_coup days = 1095 }
+		if = {
+			limit = { has_government = neutrality}
+			add_timed_idea = { idea = GER_preparing_ITA_coup days = 1095 }
+			else_if = {
+				limit = { has_government = democratic}
+				add_timed_idea = { idea = GER_preparing_ITA_coup3 days = 1095 }
+			}
+		}
 		GER = {
 			country_event = { id = wtt_germany.9 days = 1 random_days = 2 }
 		}
@@ -4249,5 +4256,36 @@ country_event = {
 			}
 			
 		}
+	}
+}
+
+# Event for Italy Launching Coup democratic
+country_event = {
+	id = wtt_germany.1017
+	title = wtt_germany.1017.t
+	desc = wtt_germany.1017.d
+	picture = GFX_report_event_french_resistance_02
+
+	is_triggered_only = yes
+
+	# It is done (no choice needed because decision was taken in previous focus's events)
+	option = {
+		name = wtt_germany.11.a
+		set_politics = { ruling_party = democratic elections_allowed = yes }
+		add_popularity = { ideology = democratic popularity = 0.1 }
+		swap_ideas = {
+			remove_idea = GER_preparing_ITA_coup3
+			add_idea = GER_preparing_ITA_coup4
+		}
+		add_ai_strategy = {
+			type = alliance
+			id = "GER"			
+			value = 200
+		}	
+		GER = {
+			add_to_faction = ITA
+			country_event = { id = wtt_germany.12 }
+		}
+		set_global_flag = ita_coup
 	}
 }
