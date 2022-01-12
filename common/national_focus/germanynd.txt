@@ -35,6 +35,20 @@ focus_tree = {
 		}
 		x = 35
 		y = 0
+		offset = {
+		x = -16
+		y = 0
+			trigger = {
+			has_completed_focus = GER_reestablish_free_elections
+			}
+		}
+		offset = {
+		x = -16
+		y = 0
+			trigger = {
+			has_completed_focus = GER_revive_the_kaiserreich
+			}
+		}
 		cost = 7
 		available = {
 			NOT = {
@@ -532,7 +546,20 @@ focus_tree = {
 		}
 		x = 45
 		y = 0
-		
+		offset = {
+		x = -16
+		y = 0
+			trigger = {
+			has_completed_focus = GER_reestablish_free_elections
+			}
+		}
+		offset = {
+		x = -16
+		y = 0
+			trigger = {
+			has_completed_focus = GER_revive_the_kaiserreich
+			}
+		}
 		cost = 5
 		ai_will_do = {
 			factor = 8
@@ -1213,7 +1240,7 @@ focus_tree = {
 		text = GER_german_war_economy
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = GER_german_war_economy2 }
-		prerequisite = { focus = GER_strengthen_polish_border }
+		prerequisite = { focus = GER_strengthen_polish_border focus = GER_strengthen_curzon_line }
 		x = -1
 		y = 1
 		relative_position_id = GER_strengthen_polish_border
@@ -1750,7 +1777,20 @@ focus_tree = {
 		ai_will_do = {
 			factor = 1
 		}
-
+		offset = {
+		x = -16
+		y = 0
+			trigger = {
+			has_completed_focus = GER_reestablish_free_elections
+			}
+		}
+		offset = {
+		x = -16
+		y = 0
+			trigger = {
+			has_completed_focus = GER_revive_the_kaiserreich
+			}
+		}
 		available_if_capitulated = yes
 		complete_tooltip = {
 			air_experience = 25
@@ -2315,10 +2355,17 @@ focus_tree = {
 		y = 2
 		relative_position_id = GER_secure_the_new_state
 		offset = {
-		x = -3
-		y = 1
+		x = 10
+		y = 0
 			trigger = {
 			has_completed_focus = GER_revive_the_kaiserreich
+			}
+		}
+		offset = {
+		x = -14
+		y = 0
+			trigger = {
+			has_completed_focus = GER_reestablish_free_elections
 			}
 		}
 		cost = 10
@@ -5323,7 +5370,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_secure_the_new_state
 		offset = {
-		x = -18
+		x = -17
 		y = 1
 			trigger = {
 			has_completed_focus = GER_reestablish_free_elections
@@ -5826,7 +5873,7 @@ focus_tree = {
 		}
 		
 		cancel_if_invalid = yes
-		x = -3
+		x = -2
 		y = 1
 		relative_position_id = GER_new_german_elections
 		cost = 6
@@ -6195,7 +6242,7 @@ focus_tree = {
 		}
 		
 		cancel_if_invalid = yes
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = GER_new_german_elections
 		cost = 6
@@ -6538,13 +6585,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = GER_bulwark_against_bolshevism
-		offset = {
-		x = -1
-		y = 1
-			trigger = {
-			has_completed_focus = GER_reestablish_free_elections
-			}
-		}
+		
 		cost = 10
 		ai_will_do = {
 			factor = 5

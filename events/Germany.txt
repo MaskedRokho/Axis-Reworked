@@ -374,6 +374,12 @@ country_event = {
 		}
 		if = {
 			limit = {
+				NOT = { owns_state = 854 }
+			}
+			add_state_claim = 854 #its the one at the bottom with two points, i forgot the name (POL)
+		}
+		if = {
+			limit = {
 				NOT = { owns_state = 78 }
 			}
 			add_state_claim = 78 #BESSARABIA (ROM)
@@ -604,6 +610,16 @@ country_event = {
 						owns_state = 850
 					}
 				}
+				OR = {
+					owns_state = 854
+					any_other_country = {
+						is_in_faction_with = GER
+						GER = {
+							is_faction_leader = yes
+						}
+						owns_state = 854
+					}
+				}
 			}
 			AND = {
 				POL = { has_capitulated = yes }
@@ -688,6 +704,46 @@ country_event = {
 							controls_state = 784
 						}
 					}
+					OR = {
+						owns_state = 848
+						any_other_country = {
+							is_in_faction_with = GER
+							GER = {
+								is_faction_leader = yes
+							}
+							owns_state = 848
+						}
+					}
+					OR = {
+						owns_state = 849
+						any_other_country = {
+							is_in_faction_with = GER
+							GER = {
+								is_faction_leader = yes
+							}
+							owns_state = 849
+						}
+					}
+					OR = {
+						owns_state = 850
+						any_other_country = {
+							is_in_faction_with = GER
+							GER = {
+								is_faction_leader = yes
+							}
+							owns_state = 850
+						}
+					}
+					OR = {
+						owns_state = 854
+						any_other_country = {
+							is_in_faction_with = GER
+							GER = {
+								is_faction_leader = yes
+							}
+							owns_state = 854
+						}
+					}
 				}
 			}
 		}
@@ -727,6 +783,10 @@ country_event = {
 						controls_state = 97
 						controls_state = 89
 						controls_state = 784
+						controls_state = 848
+						controls_state = 849
+						controls_state = 850
+						controls_state = 854
 					}
 				}
 			}
@@ -747,6 +807,7 @@ country_event = {
 						controls_state = 848
 						controls_state = 849
 						controls_state = 850
+						controls_state = 854
 					}
 				}
 				if = {
@@ -951,13 +1012,19 @@ country_event = {
 				limit = {
 					NOT = { owns_state = 849 }
 				}
-				add_state_claim = 97 #BIALYSTOK (POL)
+				add_state_claim = 849 #BIALYSTOK (POL)
 			}
 			if = {
 				limit = {
 					NOT = { owns_state = 850 }
 				}
-				add_state_claim = 97 #BIALYSTOK (POL)
+				add_state_claim = 850 #BIALYSTOK (POL)
+			}
+			if = {
+				limit = {
+					NOT = { owns_state = 854 }
+				}
+				add_state_claim = 854 #BIALYSTOK (POL)
 			}
 			if = {
 				limit = {
@@ -1034,6 +1101,7 @@ country_event = {
 							controls_state = 848
 							controls_state = 849
 							controls_state = 850
+							controls_state = 854
 						}
 					}
 				}
@@ -1054,6 +1122,7 @@ country_event = {
 							controls_state = 848
 							controls_state = 849
 							controls_state = 850
+							controls_state = 854
 						}
 					}
 					if = {
@@ -1244,6 +1313,30 @@ country_event = {
 					NOT = { owns_state = 97 }
 				}
 				add_state_claim = 97 #BIALYSTOK (POL)
+			}
+			if = {
+				limit = {
+					NOT = { owns_state = 848 }
+				}
+				add_state_claim = 848 #BIALYSTOK (POL)
+			}
+			if = {
+				limit = {
+					NOT = { owns_state = 849 }
+				}
+				add_state_claim = 849 #BIALYSTOK (POL)
+			}
+			if = {
+				limit = {
+					NOT = { owns_state = 850 }
+				}
+				add_state_claim = 850 #BIALYSTOK (POL)
+			}
+			if = {
+				limit = {
+					NOT = { owns_state = 854 }
+				}
+				add_state_claim = 854 #BIALYSTOK (POL)
 			}
 			if = {
 				limit = {
@@ -1463,6 +1556,30 @@ country_event = {
 						NOT = { owns_state = 850 }
 					}
 					add_state_claim = 850 #BIALYSTOK (POL)
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 848 }
+					}
+					add_state_claim = 848 #BIALYSTOK (POL)
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 849 }
+					}
+					add_state_claim = 849 #BIALYSTOK (POL)
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 850 }
+					}
+					add_state_claim = 850 #BIALYSTOK (POL)
+				}
+				if = {
+					limit = {
+						NOT = { owns_state = 854 }
+					}
+					add_state_claim = 854 #BIALYSTOK (POL)
 				}
 				if = {
 					limit = {
@@ -8210,6 +8327,7 @@ country_event = { #first german elections
 			}
 		}
 		promote_character = GER_konrad_adenauer
+		set_party_name = { ideology = democratic long_name = GER_democratic_party_fdp_long name = GER_democratic_party_fdp }
 	}
 	option = { #Elect Liberal Theodor Heuss
 		name = germany.1063.a 
@@ -8221,6 +8339,8 @@ country_event = { #first german elections
 			}
 		}
 		promote_character = GER_theodor_heuss
+		set_party_name = { ideology = democratic long_name = GER_democratic_party_cdu_long name = GER_democratic_party_cdu }
+
 	}
 	option = { #Elect Social Democratic Kurt Schumacher
 		name = germany.1063.c
@@ -8240,6 +8360,7 @@ country_event = { #first german elections
 			}
 		}
 		promote_character = GER_kurt_schumacher
+		set_party_name = { ideology = democratic long_name = GER_democratic_party_sdp_long name = GER_democratic_party_sdp }
 	}
 }
 
@@ -8265,8 +8386,8 @@ country_event = { #germany wants us to invest in them
 		GER = {
 			random_owned_state = {
 				limit = {
-					is_controlled_by = ROOT
-					is_core_of = ROOT
+					is_controlled_by = GER
+					is_core_of = GER
 					free_building_slots = {
 						building = industrial_complex
 						size > 0
@@ -8280,6 +8401,7 @@ country_event = { #germany wants us to invest in them
 					instant_build = yes
 				}
 			}
+			country_event = { id = { germany.1065 } }
 		}
 		
 	}
@@ -8289,6 +8411,7 @@ country_event = { #germany wants us to invest in them
 		ai_chance = {
 			factor = 25
 		}
+		country_event = { id = { germany.1066 } }
 	}
 }
 
@@ -8306,5 +8429,21 @@ country_event = { #FROM accepts
 			factor = 50
 		}
 		add_war_support = 0.05
+	}
+}
+
+country_event = { #FROM declines
+	id = germany.1066
+	title = germany.1066.t
+	desc = germany.1066.desc
+	picture = GFX_report_event_german_reichstag_gathering
+
+	is_triggered_only = yes
+
+	option = { #they accept
+		name = germany.1066.a 
+		ai_chance = {
+			factor = 50
+		}
 	}
 }
