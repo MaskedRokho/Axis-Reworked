@@ -6064,7 +6064,7 @@ focus_tree = {
 	focus = {
 		id = GER_oppose_hitler
 		icon = GFX_focus_ger_oppose_hitler
-		mutually_exclusive = { focus = GER_rhineland }
+		mutually_exclusive = { focus = GER_rhineland focus = GER_oppose_hitler}
 
 		
 
@@ -6073,7 +6073,57 @@ focus_tree = {
 			has_government = fascism
 		}
 		
-		x = 47
+		x = 30
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 7
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			hidden_effect = { #offset from fascist reasons on 00_on_actions
+				add_ai_strategy = {
+				   type = alliance
+				   id = POL
+				   value = 2000
+				}
+				POL = {
+					add_ai_strategy = {
+					   type = alliance
+					   id = GER
+					   value = 2000
+					}
+				}
+			}
+			custom_effect_tooltip = GER_oppose_hitler_civil_war
+			effect_tooltip = {
+				GER_remove_mefo_bills = yes
+			}
+			42 = { set_demilitarized_zone = no }
+			51 = { set_demilitarized_zone = no }
+			840 = { set_demilitarized_zone = no }
+			842 = { set_demilitarized_zone = no }
+			843 = { set_demilitarized_zone = no }
+			844 = { set_demilitarized_zone = no }
+			add_political_power = 120
+			add_named_threat = { threat = 5 name = GER_oppose_hitler }
+			country_event = { id = wtt_germany.1 }
+		}
+	}
+
+	focus = {
+		id = GER_communist_uprising
+		icon = GFX_focus_ger_oppose_hitler
+		mutually_exclusive = { focus = GER_rhineland focus = GER_oppose_hitler }
+
+		
+
+		available = {
+			is_subject = no
+			has_government = fascism
+		}
+		
+		x = 28
 		y = 0
 		cost = 10
 		ai_will_do = {
