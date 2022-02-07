@@ -8516,9 +8516,6 @@ country_event = {
 				country_leader = {
 					expire = "1965.1.1"
 					ideology = leninism
-					traits = {
-						great_war_hero
-					}
 				}
 				promote_leader = yes
 			}
@@ -8530,20 +8527,9 @@ country_event = {
 					has_government = fascism
 				}
 				save_event_target_as = fascist_germany_civil_war
-				every_unit_leader = {
-					set_nationality = GER
-				}
 			}
 			GER = {
 				every_unit_leader = {
-					limit = {
-						OR = {
-							has_id = 10
-							has_id = 15
-							has_id = 20
-							has_id = 24
-						}
-					}
 					set_nationality = event_target:fascist_germany_civil_war
 				}
 			}

@@ -42,20 +42,6 @@ characters={
 		}
 	}
 
-	GER_kurt_schumacher={
-		name=GER_kurt_schumacher
-		portraits={
-			civilian={
-				large="gfx/leaders/GER/Portrait_Germany_Konrad_Adenauer.dds"
-			}
-		}
-		country_leader={
-			ideology=socialism
-			expire="1965.1.1.1"
-			id=-1
-		}
-	}
-
 	GER_wilhelm_pieck={
 		name=GER_wilhelm_pieck
 		portraits={
@@ -1551,6 +1537,15 @@ characters={
 			expire="1965.1.1.1"
 			id=-1
 		}
+		corps_commander={
+			traits={ }
+			skill=2
+			attack_skill=2
+			defense_skill=1
+			planning_skill=2
+			logistics_skill=1
+			legacy_id=4
+		}
 	}
 
 	GER_kurt_schumacher={
@@ -1593,6 +1588,11 @@ characters={
 			ai_will_do = {
 				factor = 0.000
 			}
+		}
+		country_leader={
+			ideology=socialism
+			expire="1965.1.1.1"
+			id=-1
 		}		
 	}
 

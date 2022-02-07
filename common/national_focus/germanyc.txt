@@ -1,0 +1,78 @@
+## search_filters = {FOCUS_FILTER_POLITICAL}
+### search_filters = {FOCUS_FILTER_RESEARCH}
+### search_filters = {FOCUS_FILTER_INDUSTRY}
+### search_filters = {FOCUS_FILTER_STABILITY}
+### search_filters = {FOCUS_FILTER_WAR_SUPPORT}
+### search_filters = {FOCUS_FILTER_MANPOWER}
+### search_filters = {FOCUS_FILTER_ANNEXATION}
+
+focus_tree = {
+	id = german_communist_focus
+	
+	country = {
+		factor = 0
+		
+	}
+	
+	default = no
+
+
+	continuous_focus_position = { x = 150 y = 2500 }
+
+	initial_show_position = {
+		focus = GER_opposition_war
+	}
+
+	focus = {
+		id = GER_communist_war
+		text = GER_opposition_war
+		icon = GFX_goal_generic_dangerous_deal
+		available = {
+			is_subject = no
+			has_civil_war = yes
+		}
+		x = 0
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+
+		bypass = {
+			has_civil_war = no
+		}
+		completion_reward = {
+			custom_effect_tooltip = 1_GCR_tt
+			add_war_support = 0.01
+			add_ideas = GER_opposition_civil_war
+		}
+	}
+
+	focus = {
+		id = GER_workers_congress
+		text = GER_opposition_war
+		icon = GFX_goal_generic_dangerous_deal
+		available = {
+			is_subject = no
+			has_civil_war = yes
+		}
+		x = 0
+		y = 2
+		relative_position_id = GER_communist_war
+		prerequisite = { focus = GER_communist_war  }
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}
+
+		bypass = {
+			has_civil_war = no
+		}
+		completion_reward = {
+			custom_effect_tooltip = 1_GCR_tt
+			add_war_support = 0.01
+			add_ideas = GER_opposition_civil_war
+		}
+	}
+
+}

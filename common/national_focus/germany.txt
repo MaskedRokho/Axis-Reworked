@@ -6134,13 +6134,13 @@ focus_tree = {
 			hidden_effect = { #offset from fascist reasons on 00_on_actions
 				add_ai_strategy = {
 				   type = alliance
-				   id = POL
+				   id = SOV
 				   value = 2000
 				}
-				POL = {
+				SOV = {
 					add_ai_strategy = {
 					   type = alliance
-					   id = GER
+					   id = SOV
 					   value = 2000
 					}
 				}
