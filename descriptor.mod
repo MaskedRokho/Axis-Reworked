@@ -6,5 +6,5 @@ tags={
 	"Map"
 	"National Focuses"
 }
-name="Axis Reworked"
+name="WTT Germany Reworked"
 supported_version="1.11.*"
