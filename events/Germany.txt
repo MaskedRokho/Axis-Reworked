@@ -8097,7 +8097,7 @@ country_event = { #deciding our foreign policy
 	}
 }
 
-country_event = { #naval
+country_event = { #faction
 	id = germany.1058
 	title = germany.1058.t
 	desc = germany.1058.desc
@@ -8105,21 +8105,38 @@ country_event = { #naval
 
 	is_triggered_only = yes
 
-	option = { #naval buildup
+	option = { #On Our Own
 		name = germany.1058.a 
+		
 		ai_chance = {
-			factor = 50
+			factor = 40
 		}
 		hidden_effect = {
-			set_country_flag = GER_naval_alone
+			set_country_flag = GER_faction_alone
 			country_event = { id = germany.1059 days = 5 }
 		}
 	}
 
-	option = { #Accept British Naval Dominance
+	option = { #Join The Allies
 		name = germany.1058.b
+		trigger = {
+			OR = {
+				ENG = {
+					has_government = democratic
+					is_faction_leader = yes
+				}
+				FRA = {
+					has_government = democratic
+					is_faction_leader = yes
+				}
+				USA = {
+					has_government = democratic
+					is_faction_leader = yes
+				}
+			}
+		}
 		ai_chance = {
-			factor = 50
+			factor = 60
 		}
 		hidden_effect = {
 			set_country_flag = GER_accepted_british
