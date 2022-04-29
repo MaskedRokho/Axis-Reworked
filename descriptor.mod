@@ -6,5 +6,5 @@ tags={
 	"Map"
 	"National Focuses"
 }
-name="WTT Germany Reworked"
+name="Vanilla Reworked"
 supported_version="1.11.*"
