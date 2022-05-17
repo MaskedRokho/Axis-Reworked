@@ -1401,7 +1401,11 @@ country_event = { #our status with bolshevism
 	option = { #Reluctantly accept them
 		name = AR_germany.1059.b
 		ai_chance = {
-			factor = 0
+			factor = 20
+			modifier = {
+				factor = 3
+				communism > 0.3
+			}
 		}
 		hidden_effect = {
 			set_country_flag = GER_reluctant_bolshevism
@@ -1563,7 +1567,7 @@ country_event = { #first german elections
 	option = { #Elect Liberal Theodor Heuss
 		name = AR_germany.1063.a 
 		ai_chance = {
-			factor = 50
+			factor = 40
 			modifier = {
 				factor = 1.5
 				has_country_flag = GER_abolish_monarchy
@@ -1632,7 +1636,7 @@ country_event = { #germany wants us to invest in them
 					instant_build = yes
 				}
 			}
-			country_event = { id = { AR_germany.1065 } }
+			country_event = { id = AR_germany.1065 }
 		}
 		
 	}
@@ -1642,7 +1646,7 @@ country_event = { #germany wants us to invest in them
 		ai_chance = {
 			factor = 25
 		}
-		country_event = { id = { AR_germany.1066 } }
+		country_event = { id = AR_germany.1066 }
 	}
 }
 

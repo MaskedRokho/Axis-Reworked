@@ -756,7 +756,7 @@ ideas = {
 			}
 		}
 
-		GER_preparing_ITA_coup3 = {
+		GER_preparing_ITA_coup4 = {
 			allowed = {
 				always = no
 			}
@@ -1584,25 +1584,6 @@ ideas = {
 			}
 		}
 
-		GER_opposition_civil_war = {
-			allowed = {
-				has_completed_focus = GER_opposition_war
-				has_civil_war = yes
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			removal_cost = -1
-			picture = GFX_idea_chi_war_of_resistance3
-			modifier = {
-				army_core_attack_factor = 0.05
-				army_core_defence_factor = 0.02
-				army_morale_factor = 0.1
-			}
-		}
-
 		GER_west_wall_buff = {
 			allowed = {
 				always = yes
@@ -1823,11 +1804,12 @@ ideas = {
 			removal_cost = -1
 			picture = GFX_idea_ger_bulwark_against_bolshevism
 			modifier = {
-				SOV = {
-					attack_bonus_against = 0.1
-					defense_bonus_against = 0.1
-				}
 				army_morale_factor = 0.1
+			}
+			targeted_modifier = {
+				TAG = SOV
+				attack_bonus_against = 0.1
+				defense_bonus_against = 0.1
 			}
 		}
 		GER_the_great_kaiserreich_idea = {
@@ -1948,7 +1930,7 @@ ideas = {
 			}
 		}
 		GER_bnd_funding2 = {
-			text = GER_bnd_funding
+			name = GER_bnd_funding
 			allowed = {
 				always = yes
 			}

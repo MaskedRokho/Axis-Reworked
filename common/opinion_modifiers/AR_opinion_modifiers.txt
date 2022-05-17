@@ -13,4 +13,16 @@ opinion_modifiers = {
 	GER_ties_with_allies = {
 		value = 15
 	}
+
+	GER_gave_land_in_yugoslavia = {
+		value = 25
+	}
+
+	GER_work_with_the_west = {
+		value = 20
+	}
+
+	GER_accepted_offer = {
+		value = 15
+	}
 }

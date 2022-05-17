@@ -14,7 +14,6 @@ state=
 		}
 		add_core_of = YUG
 		add_core_of = SLV
-		add_claim_by = HUN
 	}
 	provinces={
 		6672 }

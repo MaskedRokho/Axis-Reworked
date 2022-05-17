@@ -22,6 +22,10 @@ state={
 			4425 1 
 		}
 
+		1937.04.12 = {
+			owner = ENG
+		}
+
 	}
 	
 	provinces={

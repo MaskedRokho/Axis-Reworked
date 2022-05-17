@@ -34,11 +34,31 @@ characters={
 			civilian={
 				large="gfx/leaders/GER/Portrait_Germany_Konrad_Adenauer.dds"
 			}
+			army={
+				small="GFX_idea_GER_theodor_heuss"
+			}
 		}
 		country_leader={
 			ideology=liberalism
 			expire="1965.1.1.1"
 			id=-1
+		}
+		advisor={
+			slot = political_advisor
+			idea_token = GER_theodor_heuss
+			allowed = {
+				original_tag = GER
+				has_dlc = "Waking the Tiger"
+			}
+			available = {
+				has_completed_focus = GER_reestablish_free_elections 
+			}
+			traits = {
+				liberal_journalist 
+			}
+			ai_will_do = {
+				factor = 0.000
+			}
 		}
 	}
 
@@ -183,8 +203,8 @@ characters={
 			}
 			available = {
 				OR = {
-					has_completed_focus = GER_army_innovation
-					has_completed_focus = GER_battle_of_maneuver
+					has_completed_focus = GER_armor_focus
+					has_completed_focus = GER_army_innovations
 				}
 			}
 			traits = {
@@ -1153,8 +1173,8 @@ characters={
 			}
 			available = {
 				OR = {
-					has_completed_focus = GER_army_innovation
-					has_completed_focus = GER_battle_of_maneuver
+					has_completed_focus = GER_army_innovations
+					has_completed_focus = GER_embrace_the_future
 				}
 			}
 			traits = {
@@ -1544,7 +1564,7 @@ characters={
 			defense_skill=1
 			planning_skill=2
 			logistics_skill=1
-			legacy_id=4
+			legacy_id=200
 		}
 	}
 
@@ -1869,32 +1889,6 @@ characters={
 			}
 			traits = {
 				connected_citizen 
-			}
-			ai_will_do = {
-				factor = 0.000
-			}
-		}
-	}
-	
-	GER_theodor_heuss={
-		name=GER_theodor_heuss
-		portraits={
-			army={
-				small="GFX_idea_GER_theodor_heuss"
-			}
-		}
-		advisor={
-			slot = political_advisor
-			idea_token = GER_theodor_heuss
-			allowed = {
-				original_tag = GER
-				has_dlc = "Waking the Tiger"
-			}
-			available = {
-				has_completed_focus = GER_reestablish_free_elections 
-			}
-			traits = {
-				liberal_journalist 
 			}
 			ai_will_do = {
 				factor = 0.000
