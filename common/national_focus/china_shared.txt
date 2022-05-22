@@ -1094,7 +1094,7 @@ shared_focus = {
 	ai_will_do = {
 		factor = 1
 		modifier = {
-			factor = 4
+			factor = 5
 			tag = PRC
 		}
 		modifier = {
@@ -1105,11 +1105,10 @@ shared_focus = {
 
 	available = {
 		SOV_will_support = yes
-	}
-
-	bypass = {
-		any_other_country = {
-			has_completed_focus = CHI_the_soviet_volunteer_group
+		NOT = { 
+			any_other_country = {
+				has_completed_focus = CHI_the_soviet_volunteer_group
+			}
 		}
 	}
 
@@ -1670,7 +1669,7 @@ shared_focus = {
 	id = CHI_one_china_policy
 	icon = GFX_focus_chi_one_china_policy
 	prerequisite = { focus = CHI_renegotiate_the_unequal_treaties }
-	x = -3
+	x = -4
 	y = 1
 	relative_position_id = CHI_renegotiate_the_unequal_treaties
 
@@ -1809,7 +1808,7 @@ shared_focus = {
 	icon = GFX_goal_generic_improve_relations
 	prerequisite = { focus = CHI_one_china_policy }
 	mutually_exclusive = { focus = CHI_conquer_tibet }
-	x = -1
+	x = -2
 	y = 1
 	relative_position_id = CHI_one_china_policy
 
@@ -1842,7 +1841,7 @@ shared_focus = {
 	icon = GFX_goal_generic_demand_territory
 	prerequisite = { focus = CHI_one_china_policy }
 	mutually_exclusive = { focus = CHI_integrate_tibet }
-	x = 1
+	x = 0
 	y = 1
 	relative_position_id = CHI_one_china_policy
 
@@ -1903,7 +1902,7 @@ shared_focus = {
 	icon = GFX_goal_generic_major_war
 	prerequisite = { focus = CHI_integrate_tibet focus = CHI_conquer_tibet }
 	mutually_exclusive = { focus = CHI_indian_cooperation }
-	x = 0
+	x = -1
 	y = 2
 	relative_position_id = CHI_one_china_policy
 
@@ -1935,10 +1934,10 @@ shared_focus = {
 shared_focus = {
 	id = CHI_demand_mongolia
 	icon = GFX_goal_generic_air_doctrine
-	prerequisite = { focus = CHI_renounce_the_mcmahon_line }
-	x = 0
-	y = 3
-	relative_position_id = CHI_one_china_policy
+	prerequisite = { focus = CHI_imperial_legacy}
+	x = -2
+	y = 1
+	relative_position_id = CHI_imperial_legacy
 
 	cost = 10
 
@@ -1994,6 +1993,11 @@ shared_focus = {
 				type = annex_everything
 				target = MON				
 				expire = 0
+			}
+		}
+		MON = {
+			every_state = {
+				add_claim_by = ROOT
 			}
 		}
 	}
@@ -2091,9 +2095,9 @@ shared_focus = {
 	id = CHI_commit_to_korean_independence
 	icon = GFX_goal_generic_national_unity
 	prerequisite = { focus = CHI_guidance_and_support }
-	x = 1
-	y = 2
-	relative_position_id = CHI_anti_imperialism
+	x = 0
+	y = 1
+	relative_position_id = CHI_guidance_and_support
 
 	cost = 10
 
@@ -2220,10 +2224,11 @@ shared_focus = {
 shared_focus = {
 	id = CHI_influence_mongolia
 	icon = GFX_goal_generic_neutrality_focus
-	prerequisite = { focus = CHI_indian_cooperation }
-	x = 0
+	prerequisite = { focus = CHI_one_china_policy }
+	prerequisite = { focus = CHI_anti_imperialism }
+	x = -2
 	y = 1
-	relative_position_id = CHI_indian_cooperation
+	relative_position_id = CHI_anti_imperialism
 
 	cost = 10
 
@@ -2266,7 +2271,7 @@ shared_focus = {
 	icon = GFX_focus_generic_support_the_left_right
 	prerequisite = { focus = CHI_renegotiate_the_unequal_treaties }
 	mutually_exclusive = { focus = CHI_anti_imperialism }
-	x = 3
+	x = 5
 	y = 1
 	relative_position_id = CHI_renegotiate_the_unequal_treaties
 

@@ -1,0 +1,137 @@
+AR_GER_coup_chance_increase = {
+    if = {
+        limit = {
+            NOT = {
+                has_country_flag = INN_coup_chance_1
+                has_country_flag = INN_coup_chance_2
+                has_country_flag = INN_coup_chance_3
+                has_country_flag = INN_coup_chance_4
+                has_country_flag = INN_coup_chance_5
+            }
+        }      
+        set_country_flag = INN_coup_chance_1
+    }
+    else_if = {
+        limit = {
+            has_country_flag = INN_coup_chance_1
+        }      
+        clr_country_flag = INN_coup_chance_1
+        set_country_flag = INN_coup_chance_2
+    }
+    else_if = {
+        limit = {
+            has_country_flag = INN_coup_chance_2
+        }      
+        clr_country_flag = INN_coup_chance_2
+        set_country_flag = INN_coup_chance_3
+    }
+    else_if = {
+        limit = {
+            has_country_flag = INN_coup_chance_3
+        }      
+        clr_country_flag = INN_coup_chance_3
+        set_country_flag = INN_coup_chance_4
+    }
+    else_if = {
+        limit = {
+            has_country_flag = INN_coup_chance_4
+        }      
+        clr_country_flag = INN_coup_chance_4
+        set_country_flag = INN_coup_chance_5
+    }
+    custom_effect_tooltip = GER_coup_chance_increase_tt
+}
+
+AR_KPD_win_struggle = {
+    add_to_variable = {
+        KPD_strength = 5
+        tooltip = KPD_strength_change
+    }
+    add_to_variable = {
+        KPO_strength = -5
+        tooltip = KPO_strength_change
+    }
+    add_to_variable = {
+        SAPD_strength = -5
+        tooltip = SAPD_strength_change
+    }
+    add_to_variable = {
+        FAUD_strength = -5
+        tooltip = FAUD_strength_change
+    }
+    set_country_flag = AR_GER_KPD_win_struggle_flag
+    add_popularity = {
+        ideology = communism
+        popularity = 0.05
+    }
+}
+AR_KPO_win_struggle = {
+    add_to_variable = {
+        KPO_strength = 5
+        tooltip = KPO_strength_change
+    }
+    add_to_variable = {
+        KPD_strength = -5
+        tooltip = KPD_strength_change
+    }
+    add_to_variable = {
+        SAPD_strength = -5
+        tooltip = SAPD_strength_change
+    }
+    add_to_variable = {
+        FAUD_strength = -5
+        tooltip = FAUD_strength_change
+    }
+    set_country_flag = AR_GER_KPO_win_struggle_flag
+    add_popularity = {
+        ideology = communism
+        popularity = 0.05
+    }
+}
+AR_SAPD_win_struggle = {
+    add_to_variable = {
+        SAPD_strength = 5
+        tooltip = SAPD_strength_change
+    }
+    add_to_variable = {
+        KPD_strength = -5
+        tooltip = KPD_strength_change
+    }
+    add_to_variable = {
+        KPO_strength = -5
+        tooltip = KPO_strength_change
+    }
+    add_to_variable = {
+        FAUD_strength = -5
+        tooltip = FAUD_strength_change
+    }
+    set_country_flag = AR_GER_SAPD_win_struggle_flag
+    add_popularity = {
+        ideology = communism
+        popularity = 0.05
+    }
+}
+AR_FAUD_win_struggle = {
+    add_to_variable = {
+        FAUD_strength = 5
+        tooltip = FAUD_strength_change
+    }
+    add_to_variable = {
+        KPD_strength = -5
+        tooltip = KPD_strength_change
+    }
+    add_to_variable = {
+        KPO_strength = -5
+        tooltip = KPO_strength_change
+    }
+    add_to_variable = {
+        SAPD_strength = -5
+        tooltip = SAPD_strength_change
+    }
+    set_country_flag = AR_GER_FAUD_win_struggle_flag
+    add_popularity = {
+        ideology = communism
+        popularity = 0.05
+    }
+}
+

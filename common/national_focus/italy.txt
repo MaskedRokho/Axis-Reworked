@@ -2280,8 +2280,8 @@
 	focus = {
 		id = ITA_portugal_friend
 		icon = GFX_goal_generic_major_alliance
-		prerequisite = { focus = ITA_spanish_italian_faction }
-		x = 0
+		prerequisite = { focus = ITA_spanish_italian_faction focus = ITA_demand_balearic_islands }
+		x = 1
 		y = 1
 		relative_position_id = ITA_spanish_italian_faction
 		cost = 10
@@ -2294,6 +2294,15 @@
 			country_exists = POR
 			NOT = {
 				has_war_with = POR
+			}
+			if = {
+				limit = {
+					has_completed_focus = ITA_demand_balearic_islands
+				}
+				NOT = {
+					has_war_with = SPA
+					has_war_with = SPR
+				}
 			}
 		}
 

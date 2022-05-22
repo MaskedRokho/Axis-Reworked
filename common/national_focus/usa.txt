@@ -305,7 +305,12 @@ focus_tree = {
 						is_subject_of = ROOT
 					}
 				}
-				set_autonomy = { target = "PHI" autonomy_state = autonomy_free }
+				PHI = {
+					add_popularity = {
+						ideology = communism
+						popularity = 0.15
+					}
+				}
 			}
 			if = {
 				limit = {

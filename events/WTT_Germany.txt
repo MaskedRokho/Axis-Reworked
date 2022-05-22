@@ -23,6 +23,7 @@ country_event = {
 				states = { 64 61 52 53 54 60 65 66 67 68 62 63 5 841 }
 			}
 			set_party_name = { ideology = neutrality long_name = GER_neutrality_party_civil_war name = GER_neutrality_party_civil_war }
+			set_party_name = { ideology = communism name = GER_communism_party_civil_war }
 			load_oob = "GER_German_Civil_War_neutrality"
 			random_other_country = {
 				limit = {
@@ -53,7 +54,6 @@ country_event = {
 			}	
 			set_stability = 0.9
 			set_war_support = 0.8
-			load_focus_tree = german_opposition_focus
 		}
 		custom_effect_tooltip = GER_fascism_civil_war_tt
 		add_stability = -0.25

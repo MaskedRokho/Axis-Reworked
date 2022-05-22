@@ -40,6 +40,7 @@ German_alternate_kaiser = {
 		GER_kdf_wagen
 		GER_extra_tech_slot
 		GER_autobahn
+		GER_privatise_car_industries
 		GER_a_new_and_better_germany
 		GER_army_innovations
 		GER_german_war_economy
@@ -144,6 +145,7 @@ German_alternate_kaiser_hre = {
 		GER_kdf_wagen
 		GER_extra_tech_slot
 		GER_autobahn
+		GER_privatise_car_industries
 		GER_a_new_and_better_germany
 		GER_reunite_sudetenland
 		GER_army_innovations
@@ -263,6 +265,7 @@ German_alternate_democratic = {
 		GER_strengthen_womans_rights
 		GER_work_with_the_west
 		GER_autobahn
+		GER_privatise_car_industries
 		GER_bulwark_against_bolshevism
 		GER_drive_the_commies_out
 		GER_the_russian_threat

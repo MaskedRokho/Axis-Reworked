@@ -27,6 +27,9 @@ focus_tree = {
 		x = 18
 		y = 15
 		cost = 10
+		available = {
+			has_civil_war = no
+		}
 		ai_will_do = {
 			factor = 12
 		}
@@ -150,13 +153,7 @@ focus_tree = {
 		}
 			
 		completion_reward = {
-			add_timed_idea = {
-				idea = GER_west_wall_buff
-				days = 140
-			}
-			custom_effect_tooltip = available_political_advisor
-			show_ideas_tooltip = todt
-			50 = {
+			843 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
 					custom_effect_tooltip = GER_west_wall_forts
@@ -187,10 +184,6 @@ focus_tree = {
 						}
 					}
 				}
-			}
-			if = {
-				limit = { 42 = { is_demilitarized_zone = yes } }
-				custom_effect_tooltip = GER_west_wall_tt
 			}
 			42 = {
 				custom_effect_tooltip = GER_west_wall_forts
@@ -226,7 +219,65 @@ focus_tree = {
 						}
 					}
 				}
-			}			
+			}	
+			842 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					custom_effect_tooltip = GER_rhine_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 589
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 5
+							province = 6488
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 6444
+							instant_build = yes
+						}
+					}
+				}
+			}		
+			840 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					custom_effect_tooltip = GER_rhine_forts
+					hidden_effect = {
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 529
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 6570
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 6469
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = bunker
+							level = 3
+							province = 3512
+							instant_build = yes
+						}
+					}
+				}
+			}	
 		}
 	}
 
@@ -1246,7 +1297,7 @@ focus_tree = {
 		id = GER_autarky
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = GER_four_year_plan }
-		x = 4
+		x = 5
 		y = 1
 		relative_position_id = GER_four_year_plan
 		cost = 10
@@ -1512,10 +1563,10 @@ focus_tree = {
 	focus = {
 		id = GER_autobahn
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = GER_autarky }
-		x = -2
+		prerequisite = { focus = GER_grosraumwirtschaft }
+		x = 2
 		y = 1
-		relative_position_id = GER_autarky
+		relative_position_id = GER_grosraumwirtschaft
 		cost = 10
 		ai_will_do = {
 			factor = 12
@@ -1579,13 +1630,69 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GER_german_war_economy
-		icon = GFX_goal_generic_construct_mil_factory
+		id = GER_establish_volkswagen
+		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = GER_autobahn }
-		mutually_exclusive = { focus = GER_integrate_war_economies }
-		x = 0
+		prerequisite = { focus = GER_autarky }
+		mutually_exclusive = { focus = GER_privatise_car_industries }
+		x = 1
 		y = 1
 		relative_position_id = GER_autobahn
+		cost = 10
+		
+		ai_will_do = {
+			factor = 2
+		}
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = communism
+				GER_kurt_schumacher = {
+					is_country_leader = yes
+				}
+			}
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = GER_volkswagen
+			add_political_power = 50
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = GER_privatise_car_industries
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = GER_autobahn}
+		mutually_exclusive = { focus = GER_establish_volkswagen }
+		x = -1
+		y = 1
+		relative_position_id = GER_autobahn
+		cost = 10
+		
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			NOT = { has_government = communism }
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			add_ideas = GER_private_car_industries
+			add_popularity = {
+				ideology = ROOT
+				popularity = 0.05
+			}
+		}
+	}
+
+	focus = {
+		id = GER_german_war_economy
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_establish_volkswagen focus = GER_privatise_car_industries}
+		x = -1
+		y = 1
+		relative_position_id = GER_establish_volkswagen
 		cost = 10
 		ai_will_do = {
 			factor = 1
@@ -1667,6 +1774,46 @@ focus_tree = {
 	}
 
 	focus = {
+		id = GER_total_war
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_integrate_war_economies }
+		prerequisite = { focus = GER_german_war_economy }
+		x = -1
+		y = 1
+		relative_position_id = GER_german_war_economy
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = no
+		available = {
+			has_war_support > 0.29
+			has_war = yes
+		}
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_idea = tot_economic_mobilisation }
+				}
+				add_ideas = tot_economic_mobilisation
+			}
+			if = {
+				limit = {
+					NOT = { has_idea = all_adults_serve }
+					NOT = { has_idea = scraping_the_barrel }
+				}
+				add_ideas = all_adults_serve
+			}
+			add_war_support = 0.15
+			hidden_effect = {
+				news_event = { id = AR_news_germany.1 days = 2}
+			}
+		}
+	}
+
+	focus = {
 		id = GER_grosraumwirtschaft
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = GER_four_year_plan }
@@ -1691,7 +1838,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = GER_grosraumwirtschaft
-		cost = 10
+		cost = 8
 		
 		ai_will_do = {
 			factor = 1
@@ -1755,7 +1902,7 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = GER_grosraumwirtschaft
-		cost = 10
+		cost = 8
 		
 		ai_will_do = {
 			factor = 1
@@ -1817,9 +1964,8 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = GER_align_hungary }
 		prerequisite = { focus = GER_align_romania }
-		mutually_exclusive = { focus = GER_german_war_economy }
-		x = 0
-		y = 1
+		x = -1
+		y = 2
 		relative_position_id = GER_align_hungary
 		cost = 10
 		ai_will_do = {
@@ -1832,10 +1978,12 @@ focus_tree = {
 				HUN = {
 					is_in_faction_with = ROOT
 					is_free_or_subject_of_root = yes
+					has_government = GER
 				}
 				ROM = {
 					is_in_faction_with = ROOT
 					is_free_or_subject_of_root = yes
+					has_government = GER
 				}
 			}
 		}
@@ -2920,7 +3068,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = GER_soviet_treaty
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 			modifier = {
@@ -3038,6 +3186,7 @@ focus_tree = {
 		cost = 10
 		available = {
 			is_subject = no
+			has_government = fascism
 		}
 		bypass = {
 			42 = { is_demilitarized_zone = no }
@@ -3046,6 +3195,7 @@ focus_tree = {
 			842 = { is_demilitarized_zone = no }
 			843 = { is_demilitarized_zone = no }
 			844 = { is_demilitarized_zone = no }
+			has_government = fascism
 		}
 		ai_will_do = {
 			factor = 30
@@ -3316,7 +3466,7 @@ focus_tree = {
 		prerequisite = { focus = GER_anti_soviet_pact focus = GER_mol_rib_pact }
 		mutually_exclusive = { focus = GER_soviet_ally }
 		available_if_capitulated = no
-		#will_lead_to_war_with = SOV Soviets were surprised that they were attacked
+		will_lead_to_war_with = SOV 
 
 		cancel = {
 			is_subject = yes
@@ -3868,7 +4018,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = GER_the_polish_question
-		cost = 6
+		cost = 5
 		ai_will_do = {
 			factor = 10	
 			modifier = {
@@ -4564,7 +4714,6 @@ focus_tree = {
 			}
 		}
 		bypass = {
-			CZE = { is_in_faction_with = GER }
 		}
 		cancel = {
 			OR = {
@@ -4887,41 +5036,6 @@ focus_tree = {
 	}
 
 	focus = {
-		id = GER_operation_tannenbaum
-		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = { focus = GER_war_with_france }
-		available = {
-			is_subject = no
-			NOT = { is_in_faction_with = SWI }
-		}
-		bypass = {
-			NOT = { country_exists = SWI }
-			has_war_with = SWI
-		}
-		cancel_if_invalid = yes
-		will_lead_to_war_with = SWI
-		x = 2
-		y = 1
-		relative_position_id = GER_war_with_france
-		cost = 10
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-		
-		completion_reward = {
-			create_wargoal = {
-				type = annex_everything
-				target = SWI
-				expire = 0
-			}
-		}
-	}
-
-	focus = {
 		id = GER_integrate_our_new_territories
 		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = GER_war_with_france }
@@ -4990,11 +5104,36 @@ focus_tree = {
 			add_ideas = GER_fan_prussian_militarism
 		}
 	}
+
+	focus = {
+		id = GER_establish_afrika_korps
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = GER_fan_the_prussian_militarism}
+		x = 0
+		y = 2
+		relative_position_id = GER_fan_the_prussian_militarism
+		cost = 7
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 10
+				any_controlled_state = {
+					is_on_continent = 5
+				}
+			}
+		}
+		
+		completion_reward = {
+			add_ideas = {
+				GER_colonial_divisions
+			}
+		}
+	}
 	focus = {
 		id = GER_defensive_focus
 		icon = GFX_goal_generic_defence
 		mutually_exclusive = { focus = GER_aggressive_focus }
-		x = -4
+		x = -5
 		y = 1
 		cost = 6
 		prerequisite = { focus = GER_fan_the_prussian_militarism }
@@ -5778,7 +5917,7 @@ focus_tree = {
 		id = GER_aggressive_focus
 		icon = GFX_goal_generic_major_war
 		mutually_exclusive = { focus = GER_defensive_focus }
-		x = 4
+		x = 5
 		y = 1
 		cost = 6
 		relative_position_id = GER_fan_the_prussian_militarism
@@ -7137,13 +7276,73 @@ focus_tree = {
 		x = -2
 		y = 1
 		relative_position_id = GER_war_with_france
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}	
 		completion_reward = {
 			SWE = {
 				add_opinion_modifier = { target = GER modifier = ger_naval_intimidation_focus }
+				if = {
+					limit = {
+						GER = {
+							has_government = fascism
+						}
+					}
+					add_timed_idea = { idea = fascist_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						GER = {
+							has_government = communism
+						}
+					}
+					add_timed_idea = { idea = communist_influence days = 1095 }
+				}
+				if = {
+					limit = {
+						GER = {
+							has_government = democratic
+						}
+					}
+					add_timed_idea = { idea = democratic_influence days = 1095 }
+				}
+				country_event = { id = generic.1 }
+			}
+		}
+	}
+
+	focus = {
+		id = GER_finland_friend
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = GER_war_with_france }
+		available = {
+			has_government = fascism
+			NOT = { has_war_with = FIN }
+			FIN = {
+				custom_trigger_tooltip = {
+					tooltip = GER_alone_or_peace_faction_tt
+					is_alone_or_in_faction_at_peace_with_GER = yes
+				}
+				NOT = { has_government = communism}
+			}
+		}
+		bypass = {
+			OR = {
+				FIN = { is_in_faction_with = GER }
+				NOT = { country_exists = FIN }
+			}
+		}
+		x = 2
+		y = 1
+		relative_position_id = GER_war_with_france
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}	
+		completion_reward = {
+			FIN = {
+				add_ideas = GER_FIN_industrial_support
 				if = {
 					limit = {
 						GER = {
@@ -7938,6 +8137,10 @@ focus_tree = {
 			is_subject = no
 			has_government = fascism
 		}
+
+		bypass = {
+			NOT = { has_government = fascism}
+		}
 		
 		x = 70
 		y = 0
@@ -7974,13 +8177,52 @@ focus_tree = {
 			add_political_power = 120
 			add_named_threat = { threat = 5 name = GER_oppose_hitler }
 			country_event = { id = wtt_germany.1 }
+			hidden_effect = {
+				add_ideas = {
+					GER_removed_hitler
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GER_civil_war_ended
+		icon = GFX_focus_ger_oppose_hitler
+		prerequisite = { focus = GER_oppose_hitler }
+
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+		}
+		
+		x = 0
+		y = 1
+		relative_position_id = GER_oppose_hitler
+		cost = 2
+		ai_will_do = {
+			factor = 10000
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		completion_reward = {
+			hidden_effect = { #offset from fascist reasons on 00_on_actions
+				set_party_name = { ideology = communism name = GER_communism_party_united }
+			}
+			add_political_power = 50
+			add_stability = 0.05
+			add_war_support = 0.05
 		}
 	}
 
 	focus = {
 		id = GER_secure_the_new_state
 		icon = GFX_focus_generic_support_the_left_right
-		prerequisite = { focus = GER_oppose_hitler }
+		prerequisite = { focus = GER_civil_war_ended }
 		available = {
 			is_subject = no
 			has_war = no
@@ -7994,7 +8236,7 @@ focus_tree = {
 		
 		x = -30
 		y = 1
-		relative_position_id = GER_oppose_hitler
+		relative_position_id = GER_civil_war_ended
 		
 		cost = 10
 		ai_will_do = {
@@ -9582,31 +9824,6 @@ focus_tree = {
 			add_state_claim = 777
 			add_state_claim = 768
 			add_state_claim = 769
-		}
-	}
-
-	focus = {
-		id = GER_colonial_divisions
-		icon = GFX_goal_generic_small_arms
-		prerequisite = { focus = GER_restore_our_colonies}
-		x = -1
-		y =1
-		relative_position_id = GER_restore_our_colonies
-		cost = 7
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 10
-				any_controlled_state = {
-					is_on_continent = 5
-				}
-			}
-		}
-		
-		completion_reward = {
-			add_ideas = {
-				GER_colonial_divisions
-			}
 		}
 	}
 
@@ -13280,7 +13497,8 @@ focus_tree = {
 	focus = {
 		id = GER_roter_morgen
 		icon = GFX_focus_generic_support_the_left_right
-		prerequisite = { focus = GER_oppose_hitler }
+		prerequisite = { focus = GER_civil_war_ended }
+		mutually_exclusive = { focus = GER_secure_the_new_state }
 		available = {
 			is_subject = no
 			has_war = no
@@ -13294,20 +13512,465 @@ focus_tree = {
 		
 		x = 15
 		y = 1
-		relative_position_id = GER_oppose_hitler
+		relative_position_id = GER_civil_war_ended
 		
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 10
 		}
 		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			add_stability = 0.1
-			add_political_power = 120
+			add_popularity = {
+				ideology = communism 
+				popularity = 0.05
+			}
 			add_timed_idea = {
 				idea = GER_clamp_down_on_fascism
 				days = 720
 			}
+			#power struggle
+			hidden_effect = {
+				set_variable = {
+					var = KPD_strength
+					value = 15
+				}
+				set_variable = {
+					var = SAPD_strength
+					value = 5
+				}
+				set_variable = {
+					var = KPO_strength
+					value = 2
+				}
+				set_variable = {
+					var = FAUD_strength
+					value = 10
+				}
+				set_country_flag = FAUD_exists
+				set_country_flag = KPO_exists
+				set_country_flag = SAPD_exists
+				set_country_flag = KPD_exists
+			}
+		}
+	}
+
+	focus = {
+		id = GER_organise_a_general_strike
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_roter_morgen }
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+		}
+		
+		x = -4
+		y = 1
+		relative_position_id = GER_roter_morgen
+		
+		cost = 7.2
+		ai_will_do = {
+			factor = 50
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_popularity = {
+				ideology = communism 
+				popularity = 0.01
+			}
+			add_timed_idea = {
+				idea = GER_general_strike
+				days = 100
+			}
+			add_to_variable = {
+				FAUD_strength = 2
+				tooltip = FAUD_strength_change
+			}
+			AR_GER_coup_chance_increase = yes
+		}
+	}
+
+	focus = {
+		id = GER_spread_marxist_newspapers
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_roter_morgen }
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+		}
+		
+		x = 0
+		y = 1
+		relative_position_id = GER_roter_morgen
+		
+		cost = 7.2
+		ai_will_do = {
+			factor = 50
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_popularity = {
+				ideology = communism 
+				popularity = 0.02
+			}
+			add_to_variable = {
+				KPO_strength = 2
+				tooltip = KPO_strength_change
+			}
+			add_to_variable = {
+				SAPD_strength = 2
+				tooltip = SAPD_strength_change
+			}
+			AR_GER_coup_chance_increase = yes
+		}
+	}
+
+	focus = {
+		id = GER_workers_united_front
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_roter_morgen }
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+		}
+		
+		x = -2
+		y = 1
+		relative_position_id = GER_roter_morgen
+		
+		cost = 7.2
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_popularity = {
+				ideology = communism 
+				popularity = 0.04
+			}
+			add_ideas = {
+				GER_united_front
+			}
+			add_to_variable = {
+				FAUD_strength = 2
+				tooltip = FAUD_strength_change
+			}
+			add_to_variable = {
+				KPO_strength = 2
+				tooltip = KPO_strength_change
+			}
+			add_to_variable = {
+				KPD_strength = 2
+				tooltip = KPD_strength_change
+			}
+			add_to_variable = {
+				SAPD_strength = 2
+				tooltip = SAPD_strength_change
+			}
+			AR_GER_coup_chance_increase = yes
+		}
+	}
+
+	focus = {
+		id = GER_arm_socialist_militias
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_roter_morgen }
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+		}
+		
+		x = 2
+		y = 1
+		relative_position_id = GER_roter_morgen
+		
+		cost = 7.2
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_stability = -0.05
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 150
+				producer = GER
+			}
+			add_popularity = {
+				popularity = 0.04
+				ideology = communism
+			}
+			add_to_variable = {
+				FAUD_strength = 2
+				tooltip = FAUD_strength_change
+			}
+			add_to_variable = {
+				KPO_strength = 2
+				tooltip = KPO_strength_change
+			}
+			add_to_variable = {
+				KPD_strength = 2
+				tooltip = KPD_strength_change
+			}
+			add_to_variable = {
+				SAPD_strength = 2
+				tooltip = SAPD_strength_change
+			}
+			AR_GER_coup_chance_increase = yes
+		}
+	}
+
+	focus = {
+		id = GER_soviet_support
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_roter_morgen }
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+			SOV = {
+				exists = yes
+				has_government = communism
+				has_civil_war = no
+			}
+		}
+
+		bypass = {
+			OR = {
+				SOV = {
+					exists = no
+					NOT = { has_government = communism }
+				}
+			}
+		}
+		
+		x = 4
+		y = 1
+		relative_position_id = GER_roter_morgen
+		
+		cost = 7.2
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			
+			effect_tooltip = {
+				add_to_variable = {
+					KPD_strength = 2
+					tooltip = KPD_strength_change
+				}
+				add_popularity = {
+					popularity = 0.01
+					ideology = communism
+				}
+				add_political_power = 50
+				add_stability = -0.05
+				AR_GER_coup_chance_increase = yes
+				SOV = {
+					send_equipment = {
+						equipment = infantry_equipment
+						amount = 150
+						target = GER
+					}
+					send_equipment = {
+						equipment = support_equipment
+						amount = 100
+						target = GER
+					}
+					custom_effect_tooltip = needs_approval
+				}
+			}
+			
+			
+		}
+	}
+
+	focus = {
+		id = GER_attempt_coup
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_organise_a_general_strike focus = GER_workers_united_front focus = GER_spread_marxist_newspapers focus = GER_arm_socialist_militias focus = GER_soviet_support }
+		available = {
+			is_subject = no
+			has_war = no
+			NOT = {
+				any_country = {
+					original_tag = GER
+					has_government = fascism
+				}
+			}
+			communism > 0.4
+		}
+		
+		x = 0
+		y = 3
+		relative_position_id = GER_roter_morgen
+		
+		cost = 7.2
+		ai_will_do = {
+			factor = 10
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_country_flag = INN_coup_chance_1
+						has_country_flag = INN_coup_chance_2
+						has_country_flag = INN_coup_chance_3
+						has_country_flag = INN_coup_chance_4
+						has_country_flag = INN_coup_chance_5
+					}
+				}      
+				random_list = {
+					0 = {
+						country_event = { id = AR_germany.5 days = 2}
+					}
+					100 = {
+						country_event = { id = AR_germany.6 days = 2}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = INN_coup_chance_1
+				}      
+				20 = {
+					country_event = { id = AR_germany.5 days = 2}
+				}
+				80 = {
+					country_event = { id = AR_germany.6 days = 2}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = INN_coup_chance_2
+				}      
+				40 = {
+					country_event = { id = AR_germany.5 days = 2}
+				}
+				60 = {
+					country_event = { id = AR_germany.6 days = 2}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = INN_coup_chance_3
+				}      
+				60 = {
+					country_event = { id = AR_germany.5 days = 2}
+				}
+				40 = {
+					country_event = { id = AR_germany.6 days = 2}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = INN_coup_chance_4
+				}      
+				80 = {
+					country_event = { id = AR_germany.5 days = 2}
+				}
+				20 = {
+					country_event = { id = AR_germany.6 days = 2}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = INN_coup_chance_5
+				}      
+				100 = {
+					country_event = { id = AR_germany.5 days = 2}
+				}
+				0 = {
+					country_event = { id = AR_germany.6 days = 2}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = GER_a_red_germany
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_attempt_coup}
+		available = {
+			is_subject = no
+			has_war = no
+		}
+		
+		x = 0
+		y = 1
+		relative_position_id = GER_attempt_coup
+		
+		cost = 5
+		ai_will_do = {
+			factor = 50
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_popularity = {
+				ideology = communism 
+				popularity = 0.05
+			}
+			add_political_power = 50
+			add_stability = 0.1
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = GER_communist_convention
+		icon = GFX_focus_generic_support_the_left_right
+		prerequisite = { focus = GER_a_red_germany }
+		available = {
+			is_subject = no
+		}
+		
+		x = 0
+		y = 1
+		relative_position_id = GER_a_red_germany
+		
+		cost = 1
+		ai_will_do = {
+			factor = 50
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_popularity = {
+				ideology = communism 
+				popularity = 0.05
+			}
+			add_political_power = 50
+			add_stability = 0.1
+			add_war_support = 0.05
 		}
 	}
 

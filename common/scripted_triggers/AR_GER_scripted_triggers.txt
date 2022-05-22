@@ -1,0 +1,59 @@
+AR_GER_KPD_strongest_party = {
+	check_variable = { KPD_strength > KPO_strength }
+	check_variable = { KPD_strength > SAPD_strength }
+	check_variable = { KPD_strength > FAUD_strength }
+}
+
+AR_GER_KPO_strongest_party = {
+	check_variable = { KPO_strength > KPD_strength }
+	check_variable = { KPO_strength > SAPD_strength }
+	check_variable = { KPO_strength > FAUD_strength }
+}
+
+AR_GER_SAPD_strongest_party = {
+	check_variable = { SAPD_strength > KPD_strength }
+	check_variable = { SAPD_strength > KPO_strength }
+	check_variable = { SAPD_strength > FAUD_strength }
+}
+
+AR_GER_FAUD_strongest_party = {
+	check_variable = { FAUD_strength > KPD_strength }
+	check_variable = { FAUD_strength > KPO_strength }
+	check_variable = { FAUD_strength > SAPD_strength }
+}
+
+AR_GER_KPD_coalition_check = {
+	count_triggers = {
+		amount = 2
+		check_variable = { KPD_strength < KPO_strength }
+		check_variable = { KPD_strength < SAPD_strength }
+		check_variable = { KPD_strength < FAUD_strength }
+	}
+}
+
+AR_GER_KPO_coalition_check = {
+	count_triggers = {
+		amount = 2
+		check_variable = { KPO_strength < KPD_strength }
+		check_variable = { KPO_strength < SAPD_strength }
+		check_variable = { KPO_strength < FAUD_strength }
+	}
+}
+
+AR_GER_SAPD_coalition_check = {
+	count_triggers = {
+		amount = 2
+		check_variable = { SAPD_strength < KPD_strength }
+		check_variable = { SAPD_strength < KPO_strength }
+		check_variable = { SAPD_strength < FAUD_strength }
+	}
+}
+
+AR_GER_FAUD_coalition_check = {
+	count_triggers = {
+		amount = 2
+		check_variable = { FAUD_strength < KPD_strength }
+		check_variable = { FAUD_strength < KPO_strength }
+		check_variable = { FAUD_strength < SAPD_strength }
+	}
+}

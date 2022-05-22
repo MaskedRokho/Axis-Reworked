@@ -55,3 +55,44 @@ defined_text = {
 		localization_key = GER_GERMAN_ARMY
 	}
 }
+
+defined_text = {
+	name = FAUD_strength_loc
+	
+	text = {
+		trigger = {
+			has_country_flag = FAUD_exists
+		}
+		FAUD_strength_loc_active
+	}
+}
+defined_text = {
+	name = KPO_strength_loc
+	
+	text = {
+		trigger = {
+			has_country_flag = KPO_exists
+		}
+		KPO_strength_loc_active
+	}
+}
+defined_text = {
+	name = SAPD_strength_loc
+	
+	text = {
+		trigger = {
+			has_country_flag = SAPD_exists
+		}
+		SAPD_strength_loc_active
+	}
+}
+defined_text = {
+	name = KPD_strength_loc
+	
+	text = {
+		trigger = {
+			has_country_flag = KPD_exists
+		}
+		KPD_strength_loc_active
+	}
+}

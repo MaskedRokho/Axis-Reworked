@@ -40,7 +40,7 @@ country_event = {
 		ai_chance = {
 			factor = 10
 			modifier = {
-				factor = 0
+				factor = 0.2
 				OR = {
 					FROM = {
 						is_ai = no
@@ -48,6 +48,829 @@ country_event = {
 				}
 			}
 		}
+	}
+}
+
+#Support for Barbarossa
+country_event = {
+	id = AR_germany.2
+	title = AR_germany.2.t
+	desc = AR_germany.2.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	# sure
+	option = {
+		name = AR_germany.2.a
+		ai_chance = {
+			factor = 20
+		}
+		custom_effect_tooltip = GER_FIN_barbarossa_support
+		set_country_flag = GER_FIN_barbarossa_support_flag
+		FROM = { country_event = { id = AR_germany.3 days = 1} }
+	}
+
+	#nah
+	option = {
+		name = AR_germany.2.b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				OR = {
+					FROM = {
+						is_ai = no
+					}
+					is_historical_focus_on = yes
+				}
+			}
+		}
+		FROM = { country_event = { id = AR_germany.4 days = 1} }
+	}
+}
+
+#Support for Barbarossa accepted
+country_event = {
+	id = AR_germany.3
+	title = AR_germany.3.t
+	desc = AR_germany.3.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { 
+		name = AR_germany.3.a
+		ai_chance = {
+			factor = 20
+		}
+		custom_effect_tooltip = GER_FIN_barbarossa_support
+	}
+}
+
+#Support for Barbarossa accepted
+country_event = {
+	id = AR_germany.4
+	title = AR_germany.4.t
+	desc = AR_germany.4.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { 
+		name = AR_germany.4.a
+		ai_chance = {
+			factor = 20
+		}
+	}
+}
+
+country_event = {#Coup works
+	id = AR_germany.5
+	title = AR_germany.5.t
+	desc = AR_germany.5.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = AR_germany.5.a
+		ai_chance = {
+			factor = 20
+		}
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.15
+		}
+	}
+}
+
+country_event = {#Coup becomes civil war
+	id = AR_germany.6
+	title = AR_germany.6.t
+	desc = AR_germany.6.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #ah great, here we go again
+		name = AR_germany.6.a
+		ai_chance = {
+			factor = 20
+		}
+		hidden_effect = {
+
+			set_capital = { state = 55 }
+			start_civil_war = {
+				ruling_party = communism
+				ideology = neutrality
+				size = 0.5
+				capital = 64
+				states = { 58 59 57 56 55 64 61 60 68 62 63 5 841 763 }
+			}
+			random_other_country = {
+				limit = {
+					original_tag = GER
+					has_government = neutrality
+				}
+				set_stability = 0.9
+				set_war_support = 0.8
+			}
+			hidden_effect = { news_event = { id = wtt_news.1 hours = 6 } }
+			
+			add_popularity = {
+				ideology = communism
+				popularity = 0.2
+			}
+			set_stability = 0.9
+			set_war_support = 0.8
+		}
+		custom_effect_tooltip = GER_fascism_civil_war_tt
+		add_stability = -0.25
+		hidden_effect = { set_cosmetic_tag = GER_provisional_gvt }
+		random_other_country = {
+			limit = {
+				original_tag = GER
+				has_government = neutrality
+			}
+			set_cosmetic_tag = GER_civil_war
+			hidden_effect = { activate_mission = GER_mefo_bills_mission }
+		}
+		hidden_effect = {
+			random_other_country = {
+				limit = {
+					original_tag = GER
+					has_government = neutrality
+				}
+				save_event_target_as = fascist_germany_civil_war
+				every_unit_leader = {
+					set_nationality = GER
+				}
+			}
+			GER = {
+				every_unit_leader = {
+					limit = {
+						OR = {
+							has_id = 10
+							has_id = 15
+							has_id = 20
+							has_id = 24
+						}
+					}
+					set_nationality = event_target:fascist_germany_civil_war
+				}
+			}
+			if = {
+				limit = {
+					is_ai = yes
+				}
+				add_political_power = 150
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment
+				    amount = 10000
+				    producer = GER
+				}
+				add_equipment_to_stockpile = {
+				    type = support_equipment
+				    amount = 250
+				    producer = GER
+				}
+				add_equipment_to_stockpile = {
+				    type = artillery_equipment
+				    amount = 500
+				    producer = GER
+				}
+			}
+		}
+	}
+}
+
+country_event = {#soviet support
+	id = AR_germany.8
+	title = AR_germany.8.t
+	desc = AR_germany.8.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #ehh sure
+		name = AR_germany.8.a
+		ai_chance = {
+			factor = 20
+		}
+		effect_tooltip = {
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 150
+				target = GER
+			}
+			send_equipment = {
+				equipment = support_equipment
+				amount = 100
+				target = GER
+			}
+			GER = {
+				add_popularity = {
+					popularity = 0.01
+					ideology = communism
+				}
+				add_political_power = 50
+				add_stability = -0.05
+				AR_GER_coup_chance_increase = yes
+			}
+		}
+	}
+
+	option = { #No.
+		name = AR_germany.8.b
+		ai_chance = {
+			factor = 0
+		}
+		
+	}
+}
+
+country_event = {#soviet support accept
+	id = AR_germany.9
+	title = AR_germany.9.t
+	desc = AR_germany.9.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = AR_germany.9.a
+		ai_chance = {
+			factor = 20
+		}
+		SOV = {
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 150
+				target = GER
+			}
+			send_equipment = {
+				equipment = support_equipment
+				amount = 100
+				target = GER
+			}
+		}
+		add_popularity = {
+			popularity = 0.01
+			ideology = communism
+		}
+		add_political_power = 50
+		add_stability = -0.05
+		AR_GER_coup_chance_increase = yes
+		add_to_variable = {
+			KPD_strength = 2
+			tooltip = KPD_strength_change
+		}
+		set_country_flag = GER_soviet_support_accepted
+	}
+}
+
+country_event = {#soviet support declines
+	id = AR_germany.10
+	title = AR_germany.10.t
+	desc = AR_germany.10.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = AR_germany.10.a
+		ai_chance = {
+			factor = 20
+		}
+	}
+}
+
+country_event = {#convention starts
+	id = AR_germany.7
+	title = AR_germany.7.t
+	desc = AR_germany.7.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #great
+		name = AR_germany.7.a
+		ai_chance = {
+			factor = 20
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = GER_soviet_support_accepted
+				}
+			}
+			country_event = { id = AR_germany.8 days = 1}
+		}
+		
+	}
+}
+
+country_event = {#soviet rigging
+	id = AR_germany.11
+	title = AR_germany.11.t
+	desc = AR_germany.11.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #it isnt found out and it works
+		name = AR_germany.11.a
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			KPD_strength = 5
+			tooltip = KPD_strength_change
+		}
+	}
+
+	option = { #it isnt found out but it fails
+		name = AR_germany.11.b
+		ai_chance = {
+			factor = 20
+		}
+		
+	}
+
+	option = { #it is found out
+		name = AR_germany.11.c
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			KPD_strength = -5
+			tooltip = KPD_strength_change
+		}
+	}
+}
+
+country_event = {#industry 
+	id = AR_germany.12
+	title = AR_germany.12.t
+	desc = AR_germany.12.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #establish a five year plan
+		name = AR_germany.12.a
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			KPD_strength = 3
+			tooltip = KPD_strength_change
+		}
+	}
+
+	option = { #reestablish trade unions
+		name = AR_germany.12.b
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			KPO_strength = 2
+			tooltip = KPO_strength_change
+		}
+		add_to_variable = {
+			SAPD_strength = 2
+			tooltip = SAPD_strength_change
+		}
+		add_to_variable = {
+			FAUD_strength = 3
+			tooltip = FAUD_strength_change
+		}
+	}
+}
+
+country_event = {#fund campaigns against smaller parties
+	id = AR_germany.13
+	title = AR_germany.13.t
+	desc = AR_germany.13.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #do it
+		name = AR_germany.13.a
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				NOT = { AR_GER_KPO_strongest_party }
+				check_variable = {
+					var = SAPD_strength
+					value = 50
+					compare = less_than
+				}
+			}
+			add_to_variable = {
+				KPO_strength = -2
+				tooltip = KPO_strength_change
+			}
+		}
+		if = {
+			limit = {
+				NOT = { AR_GER_SAPD_strongest_party }
+				check_variable = {
+					var = SAPD_strength
+					value = 50
+					compare = less_than
+				}
+			}
+			add_to_variable = {
+				SAPD_strength = -2
+				tooltip = SAPD_strength_change
+			}
+		}
+		if = {
+			limit = {
+				NOT = { AR_GER_FAUD_strongest_party }
+
+				check_variable = {
+					var = FAUD_strength
+					value = 50
+					compare = less_than
+				}
+			}
+			add_to_variable = {
+				FAUD_strength = -2
+				tooltip = FAUD_strength_change
+			}
+		}
+		if = {
+			limit = {
+				NOT = { AR_GER_KPD_strongest_party }
+				check_variable = {
+					var = KPD_strength
+					value = 50
+					compare = less_than
+				}
+			}
+			add_to_variable = {
+				KPD_strength = -2
+				tooltip = KPD_strength_change
+			}
+		}
+	}
+
+	option = { #it will destroy the democracy in the convention
+		name = AR_germany.13.b
+		ai_chance = {
+			factor = 20
+		}
+	}
+}
+
+country_event = {#army organisation
+	id = AR_germany.14
+	title = AR_germany.14.t
+	desc = AR_germany.14.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #german Red army
+		name = AR_germany.14.a
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			KPD_strength = 2
+			tooltip = KPD_strength_change
+		}
+	}
+
+	option = { #keep the current military
+		name = AR_germany.14.b
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			KPO_strength = 1
+			tooltip = KPO_strength_change
+		}
+		add_to_variable = {
+			SAPD_strength = 1
+			tooltip = SAPD_strength_change
+		}
+	}
+
+	option = { #militia organisation
+		name = AR_germany.14.b
+		ai_chance = {
+			factor = 20
+		}
+		add_to_variable = {
+			FAUD_strength = 2
+			tooltip = FAUD_strength_change
+		}
+	}
+}
+
+country_event = {#what to do with opposition
+	id = AR_germany.15
+	title = AR_germany.15.t
+	desc = AR_germany.15.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #ban opposition parties
+		name = AR_germany.15.a
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				AR_GER_KPD_strongest_party = yes
+			}
+			add_to_variable = {
+				KPD_strength = 2
+				tooltip = KPD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_KPO_strongest_party = yes
+			}
+			add_to_variable = {
+				KPO_strength = 2
+				tooltip = KPO_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_SAPD_strongest_party = yes
+			}
+			add_to_variable = {
+				SAPD_strength = 2
+				tooltip = SAPD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_FAUD_strongest_party = yes
+			}
+			add_to_variable = {
+				FAUD_strength = 2
+				tooltip = FAUD_strength_change
+			}
+		}
+	}
+
+	option = { #allow oppositions
+		name = AR_germany.15.b
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				AR_GER_KPD_strongest_party = yes
+			}
+			add_to_variable = {
+				KPO_strength = 1
+				tooltip = KPO_strength_change
+			}
+			add_to_variable = {
+				SAPD_strength = 1
+				tooltip = SAPD_strength_change
+			}
+			add_to_variable = {
+				FAUD_strength = 1
+				tooltip = FAUD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_KPO_strongest_party = yes
+			}
+			add_to_variable = {
+				KPD_strength = 1
+				tooltip = KPD_strength_change
+			}
+			add_to_variable = {
+				SAPD_strength = 1
+				tooltip = SAPD_strength_change
+			}
+			add_to_variable = {
+				FAUD_strength = 1
+				tooltip = FAUD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_SAPD_strongest_party = yes
+			}
+			add_to_variable = {
+				KPD_strength = 1
+				tooltip = KPD_strength_change
+			}
+			add_to_variable = {
+				KPO_strength = 1
+				tooltip = KPO_strength_change
+			}
+			add_to_variable = {
+				FAUD_strength = 1
+				tooltip = FAUD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_FAUD_strongest_party = yes
+			}
+			add_to_variable = {
+				KPD_strength = 1
+				tooltip = KPD_strength_change
+			}
+			add_to_variable = {
+				KPO_strength = 1
+				tooltip = KPO_strength_change
+			}
+			add_to_variable = {
+				SAPD_strength = 1
+				tooltip = SAPD_strength_change
+			}
+		}
+	}
+}
+
+country_event = {#strongest party coup
+	id = AR_germany.16
+	title = AR_germany.16.t
+	desc = AR_germany.16.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #it works
+		name = AR_germany.16.a
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				AR_GER_KPD_strongest_party = yes
+			}
+			AR_KPD_win_struggle = yes
+		}
+		else_if = {
+			limit = {
+				AR_GER_KPO_strongest_party = yes
+			}
+			AR_KPO_win_struggle = yes
+		}
+		else_if = {
+			limit = {
+				AR_GER_SAPD_strongest_party = yes
+			}
+			AR_SAPD_win_struggle = yes
+		}
+		else_if = {
+			limit = {
+				AR_GER_FAUD_strongest_party = yes
+			}
+			AR_FAUD_win_struggle = yes
+		}
+	}
+
+	option = { #it falls apart
+		name = AR_germany.16.b
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				AR_GER_KPD_strongest_party = yes
+			}
+			add_to_variable = {
+				KPD_strength = -10
+				tooltip = KPD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_KPO_strongest_party = yes
+			}
+			add_to_variable = {
+				KPO_strength = -10
+				tooltip = KPO_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_SAPD_strongest_party = yes
+			}
+			add_to_variable = {
+				SAPD_strength = -10
+				tooltip = SAPD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_FAUD_strongest_party = yes
+			}
+			add_to_variable = {
+				FAUD_strength = -10
+				tooltip = FAUD_strength_change
+			}
+		}
+		add_stability = -0.05
+	}
+}
+
+country_event = {#strongest party coup
+	id = AR_germany.17
+	title = AR_germany.17.t
+	desc = AR_germany.17.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #it works
+		name = AR_germany.16.a
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				AR_GER_KPD_strongest_party = yes
+			}
+			AR_KPD_win_struggle = yes
+		}
+		else_if = {
+			limit = {
+				AR_GER_KPO_strongest_party = yes
+			}
+			AR_KPO_win_struggle = yes
+		}
+		else_if = {
+			limit = {
+				AR_GER_SAPD_strongest_party = yes
+			}
+			AR_SAPD_win_struggle = yes
+		}
+		else_if = {
+			limit = {
+				AR_GER_FAUD_strongest_party = yes
+			}
+			AR_FAUD_win_struggle = yes
+		}
+	}
+
+	option = { #it falls apart
+		name = AR_germany.16.b
+		ai_chance = {
+			factor = 20
+		}
+		if = {
+			limit = {
+				AR_GER_KPD_strongest_party = yes
+			}
+			add_to_variable = {
+				KPD_strength = -5
+				tooltip = KPD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_KPO_strongest_party = yes
+			}
+			add_to_variable = {
+				KPO_strength = -5
+				tooltip = KPO_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_SAPD_strongest_party = yes
+			}
+			add_to_variable = {
+				SAPD_strength = -5
+				tooltip = SAPD_strength_change
+			}
+		}
+		else_if = {
+			limit = {
+				AR_GER_FAUD_strongest_party = yes
+			}
+			add_to_variable = {
+				FAUD_strength = -5
+				tooltip = FAUD_strength_change
+			}
+		}
+		add_stability = -0.05
 	}
 }
 
@@ -1681,4 +2504,69 @@ country_event = { #FROM declines
 			factor = 50
 		}
 	}
+}
+
+
+add_namespace = AR_news_germany
+
+
+country_event = { #Total War
+	id = AR_news_germany.1
+	title = AR_news_germany.1.t
+	desc = AR_news_germany.1.d
+	picture = GFX_report_event_generic_sign_treaty3
+
+	is_triggered_only = yes
+
+	option = { #WOLT IHR DEN TOTALEN KRIEG
+		name = AR_news_germany.1.a
+		add_war_support = 0.05
+		trigger = {
+			original_tag = GER
+		}
+	}
+
+	option = { #Hopefully this can end the war
+		name = AR_news_germany.1.b
+		ai_chance = {
+			factor = 20
+		}
+		trigger = {
+			OR = {
+				is_in_faction_with = GER
+				is_friend_or_potential_friend_of_GER = yes
+			}
+		}
+	}
+
+	option = { #This will not save them from their doom
+		name = AR_news_germany.1.c
+		ai_chance = {
+			factor = 20
+		}
+		trigger = {
+			GER {
+				surrender_limit > 0.1
+			}
+			NOT = {
+				is_friend_or_potential_friend_of_GER = yes
+			}
+		}
+	}
+
+	option = { #We can still defeat them
+		name = AR_news_germany.1.d
+		ai_chance = {
+			factor = 20
+		}
+		trigger = {
+			GER {
+				surrender_limit < 0.1
+			}
+			NOT = {
+				is_friend_or_potential_friend_of_GER = yes
+			}
+		}
+	}
+
 }

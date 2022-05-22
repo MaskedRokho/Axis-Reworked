@@ -229,7 +229,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = HUN_invite_the_habsburg_prince
 
-		cost = 10
+		cost = 8
 
 		ai_will_do = {
 			factor = 70
@@ -473,12 +473,35 @@ focus_tree = {
 					}
 				}
 				ROM = { country_event = DOD_hungary.50 }
+				hidden_effect = {
+					news_event = { id = news.300 }
+				}
 			}
 			else = {
 				add_ai_strategy = {
 					type = conquer
   					id = ROM
   					value = 200
+				}
+				every_other_country = {
+					limit = {
+						OR = {
+							owns_state = 76
+							owns_state = 83
+							owns_state = 84
+							owns_state = 82
+						}
+						NOT = {
+							is_in_faction_with = ROOT
+							is_puppet_of = ROOT
+						}
+					}
+					ROOT = {
+						create_wargoal = {
+							type = puppet_wargoal_focus
+							target = PREV
+						}
+					}
 				}
 			}	
 		}
@@ -543,6 +566,30 @@ focus_tree = {
   					value = 200
 				}
 			}
+			every_other_country = {
+				limit = {
+					OR = {
+						owns_state = 102
+						owns_state = 103
+						owns_state = 109
+						owns_state = 104
+						owns_state = 163
+						owns_state = 804
+						owns_state = 764
+						owns_state = 45
+					}
+					NOT = {
+						is_in_faction_with = ROOT
+						is_puppet_of = ROOT
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						type = puppet_wargoal_focus
+						target = PREV
+					}
+				}
+			}
 		}
 	}
 
@@ -581,6 +628,8 @@ focus_tree = {
 			add_state_claim = 736
 			add_state_claim = 160
 			add_state_claim = 39
+			add_state_claim = 851
+			add_state_claim = 159
 			if = {
 				limit = {
 					160 = { is_controlled_by = ITA }
@@ -589,6 +638,27 @@ focus_tree = {
 					type = conquer
   					id = ITA
   					value = 200
+				}
+			}
+			every_other_country = {
+				limit = {
+					OR = {
+						owns_state = 736
+						owns_state = 160
+						owns_state = 39
+						owns_state = 851
+						owns_state = 159
+					}
+					NOT = {
+						is_in_faction_with = ROOT
+						is_puppet_of = ROOT
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						type = puppet_wargoal_focus
+						target = PREV
+					}
 				}
 			}
 		}
@@ -650,6 +720,25 @@ focus_tree = {
 					}
 				}
 			}
+			every_other_country = {
+				limit = {
+					OR = {
+						owns_state = 88
+						owns_state = 89
+						owns_state = 91
+					}
+					NOT = {
+						is_in_faction_with = ROOT
+						is_puppet_of = ROOT
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						type = puppet_wargoal_focus
+						target = PREV
+					}
+				}
+			}
 		}
 	}
 
@@ -682,6 +771,23 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
 			add_state_claim = 80
+			every_other_country = {
+				limit = {
+					OR = {
+						owns_state = 80
+					}
+					NOT = {
+						is_in_faction_with = ROOT
+						is_puppet_of = ROOT
+					}
+				}
+				ROOT = {
+					create_wargoal = {
+						type = puppet_wargoal_focus
+						target = PREV
+					}
+				}
+			}
 		}
 	}
 	focus = {
@@ -3678,9 +3784,7 @@ focus_tree = {
 	focus = {
 		id = HUN_indigenous_designs
 		icon = GFX_goal_generic_air_production
-		prerequisite = { focus = HUN_establish_the_air_force }
-		prerequisite = { focus = HUN_boost_hungarian_aviation_industry }
-		mutually_exclusive = { focus = HUN_license_foreign_designs }
+		prerequisite = { focus = HUN_establish_the_air_force focus = HUN_boost_hungarian_aviation_industry  }
 		mutually_exclusive = { focus = HUN_joint_air_development }
 		x = -2
 		y = 5
